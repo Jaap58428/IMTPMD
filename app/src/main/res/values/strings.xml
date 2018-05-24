@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">PMD Final</string>
+    <string name="welcome_title">EvalNow!</string>
+    <string name="welcome_login">Username</string>
+    <string name="welcome_pwd">Password</string>
+    <string name="welcome_login_btn">Login</string>
+    <string name="welcome_register_btn">Register</string>
+    <string name="welcome_message">Welcome!</string>
+    <string name="forgot_username">You did not fill in a username</string>
+    <string name="forgot_password">You did not fill in a password</string>
+    <string name="login_success">Login successful</string>
+    <string name="login_fail">Incorrect credentials</string>
+    <string name="no_users">There are no registered users!</string>
 </resources>
