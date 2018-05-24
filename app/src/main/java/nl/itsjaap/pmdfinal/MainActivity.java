@@ -14,6 +14,11 @@ import nl.itsjaap.pmdfinal.Database.DatabaseInfo;
 
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * @author Jaap Kanbier s1100592
+     * git: https://github.com/Jaap58428/IMTPMD
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

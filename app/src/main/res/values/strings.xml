@@ -3,7 +3,7 @@
     <string name="app_name">PMD Final</string>
 
     <!--Welcome-->
-    <string name="welcome_title">SLB for you!</string>
+    <string name="welcome_title">SLB4U</string>
     <string name="welcome_login">Email</string>
     <string name="welcome_pwd">Password</string>
     <string name="welcome_login_btn">Login</string>
