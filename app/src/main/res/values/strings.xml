@@ -1,7 +1,10 @@
 <resources>
+    <!--General-->
     <string name="app_name">PMD Final</string>
+
+    <!--Welcome-->
     <string name="welcome_title">EvalNow!</string>
-    <string name="welcome_login">Username</string>
+    <string name="welcome_login">Email</string>
     <string name="welcome_pwd">Password</string>
     <string name="welcome_login_btn">Login</string>
     <string name="welcome_register_btn">Register</string>
@@ -11,4 +14,15 @@
     <string name="login_success">Login successful</string>
     <string name="login_fail">Incorrect credentials</string>
     <string name="no_users">There are no registered users!</string>
+
+    <!--Register-->
+    <string name="register_title">Create an account</string>
+    <string name="register_name">Email</string>
+    <string name="register_pwd">Password</string>
+    <string name="register_pwd_confirm">Confirm password</string>
+    <string name="register_button">Register</string>
+
+    <string name="register_toast_user_exists">This email is already in use</string>
+    <string name="register_toast_short_pwd">Password too short</string>
+
 </resources>

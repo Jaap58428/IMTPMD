@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + DatabaseInfo.UserTable.USERTABLE + " (" +
                 BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                DatabaseInfo.UserColumn.NAME + " TEXT," +
+                DatabaseInfo.UserColumn.EMAIL + " TEXT," +
                 DatabaseInfo.UserColumn.PASSWORD + " TEXT);"
         );
     }
