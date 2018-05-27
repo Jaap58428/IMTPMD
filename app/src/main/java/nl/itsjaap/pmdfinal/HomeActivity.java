@@ -27,6 +27,14 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        Button courseBtn = findViewById(R.id.homeBtnCourse);
+        courseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         /**
          *
          * Required aspects, everything can be used by user

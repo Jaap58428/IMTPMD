@@ -1,5 +1,6 @@
 package nl.itsjaap.pmdfinal;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -41,48 +42,60 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), getString(R.string.register_toast_invalid_mail), Toast.LENGTH_SHORT).show();
                 } else if (sPwd.length() < 8 ) {
                     Toast.makeText(getApplicationContext(), getString(R.string.register_toast_short_pwd), Toast.LENGTH_SHORT).show();
-                } else if (!sPwd.matches(sPwdConf)) {
+                } else if (!sPwd.equals(sPwdConf)) {
                     Toast.makeText(getApplicationContext(), getString(R.string.register_toast_pwd_match), Toast.LENGTH_SHORT).show();
                 } else {
                     validate(sMail, sPwd);
 
-
-
-                    // Auto login
-                    startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                 }
 
             }
         });
     }
 
-    public void validate(String email, String pwd) {
+    public void validate(String emailInput, String pwdInput) {
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
         Cursor rs = db.query(DatabaseInfo.UserTable.USERTABLE, new String[]{"*"}, null, null, null, null, null);
 
+        boolean userExists = false;
         // If there are users: check if email isn't already taken
-        if (rs.getCount() < 0) {
+        if (rs.getCount() > 0) {
             rs.moveToFirst();
             for (int i = 0 ; i < rs.getCount() ; i++) {
-                if (email.matches(rs.getColumnName(rs.getColumnIndex("email")))) {
+                if (emailInput.equals(rs.getString(rs.getColumnIndex(DatabaseInfo.UserColumn.EMAIL)))) {
                     Toast.makeText(getApplicationContext(), getString(R.string.register_toast_user_exists), Toast.LENGTH_SHORT).show();
-                    return;
+                    userExists = true;
                 }
                 rs.moveToNext();
             }
         }
 
         // Hash pwd
-        for (byte b : pwd.getBytes()) {
-            // Find implementation
+//        for (byte b : pwd.getBytes()) {
+//            // Find implementation
+//        }
+
+        if (!userExists) {
+            insertNewUser(emailInput, pwdInput);
         }
+    }
+
+    public void insertNewUser(String emailInput, String pwdInput) {
+        DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
 
         // Insert values into DB
         ContentValues cv = new ContentValues();
-        cv.put(DatabaseInfo.UserColumn.EMAIL, email);
-        cv.put(DatabaseInfo.UserColumn.PASSWORD, pwd);
+        cv.put(DatabaseInfo.UserColumn.EMAIL, emailInput);
+        cv.put(DatabaseInfo.UserColumn.PASSWORD, pwdInput);
         db.insert(DatabaseInfo.UserTable.USERTABLE, null, cv);
 
+
+        // Return the results to the login and finish
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("registeredEmail", emailInput);
+        resultIntent.putExtra("registeredPwd", pwdInput);
+        setResult(Activity.RESULT_OK, resultIntent);
+        finish();
     }
 
 }

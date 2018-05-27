@@ -27,6 +27,7 @@
     <string name="register_toast_invalid_mail">Please enter a valid email address</string>
     <string name="register_toast_short_pwd">Password needs at least 8 characters</string>
     <string name="register_toast_pwd_match">Passwords don\'t match</string>
+    <string name="register_toast_success">Registry successful! You can now login</string>
 
     <!--Home-->
     <string name="home_welcome">Welcome</string>

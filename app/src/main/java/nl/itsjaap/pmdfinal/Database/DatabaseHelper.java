@@ -10,8 +10,8 @@ import android.provider.BaseColumns;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static SQLiteDatabase mSQLDB;
     private static DatabaseHelper mInstance;
-    public static final String dbName = "courses.db";
-    public static final int dbVersion = 1;
+    public static final String dbName = "sql4u.db";
+    public static final int dbVersion = 6;
 
     private DatabaseHelper(Context ctx) {
         super(ctx, dbName, null, dbVersion);
@@ -32,11 +32,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 DatabaseInfo.UserColumn.EMAIL + " TEXT," +
                 DatabaseInfo.UserColumn.PASSWORD + " TEXT);"
         );
+
+        db.execSQL("CREATE TABLE " + DatabaseInfo.CourseTable.COURSETABLE + " (" +
+                BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DatabaseInfo.CourseColumn.NAME + " TEXT," +
+                DatabaseInfo.CourseColumn.CREDITS + " INTEGER," +
+                DatabaseInfo.CourseColumn.GRADE + " DOUBLE," +
+                DatabaseInfo.CourseColumn.PERIOD + " INTEGER," +
+                DatabaseInfo.CourseColumn.YEAR + " INTEGER," +
+                DatabaseInfo.CourseColumn.ISOPT + " BOOLEAN);"
+        );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + DatabaseInfo.UserTable.USERTABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + DatabaseInfo.CourseTable.COURSETABLE);
         onCreate(db);
     }
 
