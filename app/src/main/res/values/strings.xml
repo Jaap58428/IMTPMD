@@ -22,9 +22,25 @@
     <string name="register_pwd_confirm">Confirm password</string>
     <string name="register_button">Register</string>
 
+    <!--Notifications-->
     <string name="register_toast_user_exists">This email is already in use</string>
     <string name="register_toast_invalid_mail">Please enter a valid email address</string>
     <string name="register_toast_short_pwd">Password needs at least 8 characters</string>
     <string name="register_toast_pwd_match">Passwords don\'t match</string>
+
+    <!--Home-->
+    <string name="home_welcome">Welcome</string>
+    <string name="home_intro">Here you can see your personal study progress!</string>
+    <string name="home_btn_tutorial">Tutorial</string>
+    <string name="home_btn_courses">Courses</string>
+    <string name="home_btn_graph">Graph</string>
+
+    <!--Tutorial-->
+    <string name="tutorial_intro">You can set grades for completed courses and add notes.</string>
+    <string name="tutorial_extra">There you can also add optional courses or filter by different categories.</string>
+    <string name="tutorial_graph">In the Graph screen you can see your progress visualized.</string>
+
+
+
 
 </resources>

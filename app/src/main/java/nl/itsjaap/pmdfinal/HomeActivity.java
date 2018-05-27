@@ -1,8 +1,11 @@
 package nl.itsjaap.pmdfinal;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +19,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Button tutorialBtn = findViewById(R.id.homeBtnTutorial);
+        tutorialBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, TutorialActivity.class));
+            }
+        });
+
         /**
          *
          * Required aspects, everything can be used by user
@@ -25,6 +36,9 @@ public class HomeActivity extends AppCompatActivity {
          * - Filter by year
          * - Per course: completed? + grade + notes
          *
+         * https://itsjaap.nl/js/courses.json
+         *
+         * Tutorial screen with fragments
          * Visualize progress
          * Use of SQLite local DB
          * Use of online JSON (list of potential courses, hosted on itsjaap?)
