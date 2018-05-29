@@ -1,4 +1,4 @@
-package nl.itsjaap.pmdfinal.GSON;
+package nl.itsjaap.pmdfinal.gson;
 
 import android.content.Context;
 import android.graphics.Bitmap;

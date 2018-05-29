@@ -1,4 +1,4 @@
-package nl.itsjaap.pmdfinal.Database;
+package nl.itsjaap.pmdfinal.database;
 
 public class DatabaseInfo {
 
@@ -22,6 +22,7 @@ public class DatabaseInfo {
         public static final String PERIOD = "period";
         public static final String YEAR = "year";
         public static final String ISOPT = "isOpt";
+        public static final String USER = "user";
     }
 
 

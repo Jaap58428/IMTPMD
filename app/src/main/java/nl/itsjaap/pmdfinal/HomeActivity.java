@@ -1,17 +1,14 @@
 package nl.itsjaap.pmdfinal;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import nl.itsjaap.pmdfinal.Database.DatabaseHelper;
-import nl.itsjaap.pmdfinal.Database.DatabaseInfo;
+import nl.itsjaap.pmdfinal.list.CourseListActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -32,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         courseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, ListActivity.class));
+                startActivity(new Intent(HomeActivity.this, CourseListActivity.class));
             }
         });
 
@@ -63,6 +60,8 @@ public class HomeActivity extends AppCompatActivity {
          * dependencies:
          * implementation 'com.google.code.gson:gson:2.3.1'  // zet JSON in goede classes
          * implementation 'com.mcxiaoke.volley:library:1.0.19'   // Volley library 4 HTTP req.
+         *
+         * <uses-permission android:name="android.permission.INTERNET" />
          *
          * */
 

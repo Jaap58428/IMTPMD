@@ -1,4 +1,4 @@
-package nl.itsjaap.pmdfinal.Database;
+package nl.itsjaap.pmdfinal.database;
 
 import android.content.ContentValues;
 import android.content.Context;
