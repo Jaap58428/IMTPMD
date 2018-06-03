@@ -6,13 +6,16 @@ package nl.itsjaap.pmdfinal;
  */
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import nl.itsjaap.pmdfinal.database.DatabaseHelper;
@@ -27,8 +30,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Welcome the user back, a touch of UX
-        Toast.makeText(getApplicationContext(), getString(R.string.welcome_message),Toast.LENGTH_SHORT).show();
+        // get the value of the username from shared prefs if present
+        SharedPreferences credentials = getSharedPreferences(getString(R.string.prefs_name), 0);
+        String userName = credentials.getString(getString(R.string.prefs_lastUser), "");   // DFLT null
+
+        // check if a username is present
+        if (userName.length() > 0) {
+            // greet the user
+            Toast.makeText(getApplicationContext(), getString(R.string.welcome_message) + " " + userName,Toast.LENGTH_SHORT).show();
+
+            // set the username in the input
+            EditText userNameInput = findViewById(R.id.usernameEditText);
+            userNameInput.setText(userName, TextView.BufferType.EDITABLE);
+        }
+
 
         Button loginBtn = findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +92,23 @@ public class MainActivity extends AppCompatActivity {
                         && password.equals(rs.getString(rs.getColumnIndex(DatabaseInfo.UserColumn.PASSWORD))))
                 {
                     Toast.makeText(getApplicationContext(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainActivity.this, HomeActivity.class));
+
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+
+                    Bundle b = new Bundle();
+                    b.putString("userName", username);
+                    intent.putExtras(b);
+
+                    SharedPreferences credentials = getSharedPreferences(getString(R.string.prefs_name), 0);
+                    SharedPreferences.Editor editor = credentials.edit();
+                    editor.putString(getString(R.string.prefs_lastUser),username);
+                    editor.apply();
+
+                    startActivity(intent);
                     loginSuccess = true;
+
+
+
                 }
             }
             if (!loginSuccess) {
