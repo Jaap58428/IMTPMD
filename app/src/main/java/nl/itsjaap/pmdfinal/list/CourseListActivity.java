@@ -24,6 +24,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.itsjaap.pmdfinal.HomeActivity;
 import nl.itsjaap.pmdfinal.R;
 import nl.itsjaap.pmdfinal.database.DatabaseHelper;
 import nl.itsjaap.pmdfinal.database.DatabaseInfo;
@@ -37,13 +38,16 @@ public class CourseListActivity extends AppCompatActivity {
     private ListAdapter mAdapter;
     private List<CourseModel> courseModels = new ArrayList<>();
 
+    final String CURRENTUSER = getIntent().getExtras().getString("userName");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
 
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
-        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, null, null, null, null, null);
+        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=?", new String[] { CURRENTUSER }, null, null, null);
 
         mListView = (ListView) findViewById(R.id.my_list_view);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

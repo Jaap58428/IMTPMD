@@ -24,8 +24,6 @@ import nl.itsjaap.pmdfinal.database.DatabaseInfo;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         // get the value of the username from shared prefs if present
         SharedPreferences credentials = getSharedPreferences(getString(R.string.prefs_name), 0);
-        String userName = credentials.getString(getString(R.string.prefs_lastUser), "");   // DFLT null
+        String userName = credentials.getString(getString(R.string.prefs_lastUser), "");
 
         // check if a username is present
         if (userName.length() > 0) {
@@ -88,12 +86,9 @@ public class MainActivity extends AppCompatActivity {
             rs.moveToFirst();
             boolean loginSuccess = false;
             // loop over users and check credentials
-            Log.d("checking input user", username);
-            Log.d("checking input pwd", password);
             for (int i = 0 ; i < rs.getCount() ; i++){
                 String toCheckUser = rs.getString(rs.getColumnIndex(DatabaseInfo.UserColumn.EMAIL));
                 String toCheckPwd = rs.getString(rs.getColumnIndex(DatabaseInfo.UserColumn.PASSWORD));
-                Log.d("checking against", toCheckUser + " " + toCheckPwd );
                 if (username.equals(toCheckUser) && password.equals(toCheckPwd))
                 {
                     Toast.makeText(getApplicationContext(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();

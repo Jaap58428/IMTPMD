@@ -19,6 +19,8 @@ import nl.itsjaap.pmdfinal.models.CourseModel;
 
 public class ListAdapter extends ArrayAdapter<CourseModel> {
 
+
+
     public ListAdapter(Context context, int resource, List<CourseModel> objects){
         super(context, resource, objects);
     }

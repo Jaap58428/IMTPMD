@@ -88,9 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Insert values into DB
         ContentValues cv = new ContentValues();
         cv.put(DatabaseInfo.UserColumn.EMAIL, emailInput);
-        Log.d("inserted mail:", emailInput);
         cv.put(DatabaseInfo.UserColumn.PASSWORD, pwdInput);
-        Log.d("inserted pwd:", pwdInput);
         db.insert(DatabaseInfo.UserTable.USERTABLE, null, cv);
 
 

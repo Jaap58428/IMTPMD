@@ -35,6 +35,8 @@ import nl.itsjaap.pmdfinal.models.CourseModel;
 
 public class HomeActivity extends AppCompatActivity {
 
+    final String CURRENTUSER = getIntent().getExtras().getString("userName");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatabaseHelper dbHelper = DatabaseHelper.getHelper(getApplicationContext());
-                Cursor rs = dbHelper.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, " email = " + getIntent().getExtras().getString("userName"), null, null, null, null);
+                Cursor rs = dbHelper.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=?", new String[] { CURRENTUSER }, null, null, null);
 
                 if (rs.getCount() == 0) {
                     requestSubjects();
@@ -74,7 +76,11 @@ public class HomeActivity extends AppCompatActivity {
         courseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, CourseListActivity.class));
+                Intent intent = new Intent(HomeActivity.this, CourseListActivity.class);
+
+                Bundle b = new Bundle();
+                b.putString("userName", CURRENTUSER);
+                intent.putExtras(b);
             }
         });
 
