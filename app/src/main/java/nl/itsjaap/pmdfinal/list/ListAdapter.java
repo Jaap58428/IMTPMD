@@ -47,7 +47,7 @@ public class ListAdapter extends ArrayAdapter<CourseModel> {
         }
 
         vh.title.setText(cm.getName() + " - " + cm.getYear() + "." + cm.getPeriod());
-        vh.info.setText("Cijfer: " + cm.getGrade() + sOpt);
+        vh.info.setText("Cijfer: " + cm.getGrade()+ "\t" + sOpt);
         return convertView;
     }
 

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Get user input
                 EditText usernameEditText = findViewById(R.id.usernameEditText);
-                String sUsername = usernameEditText.getText().toString();
+                String sUsername = usernameEditText.getText().toString().toLowerCase();
 
                 EditText pwdEditText = findViewById(R.id.pwdEditText);
                 String sPwd = pwdEditText.getText().toString();

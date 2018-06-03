@@ -9,6 +9,7 @@ public class CourseModel {
     private String year;
     private String isOpt;
     private String user;
+    private String note;
 
     public CourseModel(String n, String c, String p, String y, String i) {
         this.name = n;
@@ -18,6 +19,7 @@ public class CourseModel {
         this.year = y;
         this.isOpt = i;
         this.user = null;
+        this.note = "";
     }
 
     public String getName() {
@@ -46,5 +48,9 @@ public class CourseModel {
 
     public String getUser() {
         return user;
+    }
+
+    public String getNote() {
+        return note;
     }
 }

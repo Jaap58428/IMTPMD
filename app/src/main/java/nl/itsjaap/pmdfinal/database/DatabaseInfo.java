@@ -28,6 +28,7 @@ public class DatabaseInfo {
         public static final String YEAR = "year";
         public static final String ISOPT = "isOpt";
         public static final String USER = "user";
+        public static final String NOTE = "note";
     }
 
 

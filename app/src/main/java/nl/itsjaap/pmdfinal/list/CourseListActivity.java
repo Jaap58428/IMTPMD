@@ -49,29 +49,31 @@ public class CourseListActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                              @Override
                                              public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                                                 Toast t = Toast.makeText(CourseListActivity.this,"Click" + position,Toast.LENGTH_SHORT);
-                                                 t.show();
-                                             }
-                                         }
+                 Toast t = Toast.makeText(CourseListActivity.this,"Click" + position,Toast.LENGTH_SHORT);
+                 t.show();
+                 }
+             }
         );
 
         if (rs.getCount() > 0) {
             rs.moveToFirst();
             for (int i = 0 ; i < rs.getCount() ; i++) {
-                String name = rs.getString(rs.getColumnIndex("name"));
-                String ects = rs.getString(rs.getColumnIndex("ects"));
-                String period = rs.getString(rs.getColumnIndex("period"));
-                String grade = rs.getString(rs.getColumnIndex("grade"));
-                courseModels.add(new CourseModel(name, ects, grade, period));
+                String name = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.NAME));
+                String credits = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.CREDITS));
+                String period = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.PERIOD));
+                String year = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.YEAR));
+                String isOpt = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.ISOPT));
+                String grade = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.GRADE));
+                courseModels.add(new CourseModel(name, credits, period, year, isOpt ));
                 rs.moveToNext();
             }
         }
 
 
-        mAdapter = new CourseListAdapter(CourseListActivity.this, 0, courseModels);
+        mAdapter = new ListAdapter(CourseListActivity.this, 0, courseModels);
         mListView.setAdapter(mAdapter);
-        }
-
     }
 
 }
+
+

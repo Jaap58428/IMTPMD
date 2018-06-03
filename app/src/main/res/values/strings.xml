@@ -1,6 +1,7 @@
 <resources>
     <!--General-->
     <string name="app_name">PMD Final</string>
+    <string name="error">There was an error: </string>
 
     <!--Welcome-->
     <string name="welcome_title">SLB4U</string>
@@ -36,6 +37,8 @@
     <string name="home_btn_courses">Courses</string>
     <string name="home_btn_graph">Graph</string>
     <string name="home_btn_fill">GET JSON</string>
+    <string name="home_toast_json_success">JSON has successfully received</string>
+
 
     <!--Tutorial-->
     <string name="tutorial_intro">You can set grades for completed courses and add notes.</string>

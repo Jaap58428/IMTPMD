@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText emailEditText = findViewById(R.id.registerEmailEditText);
-                String sMail = emailEditText.getText().toString();
+                String sMail = emailEditText.getText().toString().toLowerCase();
 
                 EditText pwdEditText = findViewById(R.id.registerPwdEditText);
                 String sPwd = pwdEditText.getText().toString();

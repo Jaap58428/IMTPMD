@@ -64,10 +64,7 @@ public class HomeActivity extends AppCompatActivity {
 
         /**
          *
-         * Overal author & Studentnummer toevoegen
-         *
          * List of all courses + EC needed to graduate
-         * - Mandatory vs. Optional
          * - Filter by year
          * - Per course: completed? + grade + notes
          * -> click een listitem en open een nieuwe activity met gepasseerde info
@@ -84,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
     private void requestSubjects(){
         Type type = new TypeToken<List<CourseModel>>(){}.getType();
 
-        GsonRequest<List<CourseModel>> request = new GsonRequest<List<CourseModel>>("http://fuujokan.nl/subject_lijst.json",
+        GsonRequest<List<CourseModel>> request = new GsonRequest<List<CourseModel>>("https://itsjaap.nl/js/courses.json",
                 type, null, new Response.Listener<List<CourseModel>>() {
             @Override
             public void onResponse(List<CourseModel> response) {
@@ -115,10 +112,12 @@ public class HomeActivity extends AppCompatActivity {
         rs.moveToFirst();   // kan leeg zijn en faalt dan
         DatabaseUtils.dumpCursor(rs);
 
+        Toast.makeText(getApplicationContext(), R.string.home_toast_json_success, Toast.LENGTH_SHORT).show();
+
     }
 
     private void processRequestError(VolleyError error){
-        Toast.makeText(getApplicationContext(), "There was an error:\n" + error , Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "" + R.string.error + "\n" +  error , Toast.LENGTH_LONG).show();
     }
 
 }
