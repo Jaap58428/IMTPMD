@@ -1,5 +1,10 @@
 package nl.itsjaap.pmdfinal;
 
+/**
+ * @author Jaap Kanbier s1100592
+ * git: https://github.com/Jaap58428/IMTPMD
+ */
+
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.ContentValues;
@@ -59,8 +64,6 @@ public class HomeActivity extends AppCompatActivity {
 
         /**
          *
-         * Required aspects, everything can be used by user
-         *
          * Overal author & Studentnummer toevoegen
          *
          * List of all courses + EC needed to graduate
@@ -70,9 +73,6 @@ public class HomeActivity extends AppCompatActivity {
          * -> click een listitem en open een nieuwe activity met gepasseerde info
          * mogelijkheid tot invoegen van comments en die in die activity opslaan.
          *
-         * https://itsjaap.nl/js/courses.json
-         *
-         * Tutorial screen with fragments
          * Visualize progress
          * Use of SQLite local DB
          * Use of online JSON (list of potential courses, hosted on itsjaap?)

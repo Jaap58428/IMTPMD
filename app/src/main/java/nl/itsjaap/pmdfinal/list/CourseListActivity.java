@@ -1,5 +1,10 @@
 package nl.itsjaap.pmdfinal.list;
 
+/**
+ * @author Jaap Kanbier s1100592
+ * git: https://github.com/Jaap58428/IMTPMD
+ */
+
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
