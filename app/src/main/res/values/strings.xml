@@ -35,6 +35,7 @@
     <string name="home_btn_tutorial">Tutorial</string>
     <string name="home_btn_courses">Courses</string>
     <string name="home_btn_graph">Graph</string>
+    <string name="home_btn_fill">GET JSON</string>
 
     <!--Tutorial-->
     <string name="tutorial_intro">You can set grades for completed courses and add notes.</string>

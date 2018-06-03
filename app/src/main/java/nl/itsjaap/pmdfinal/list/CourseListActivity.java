@@ -6,6 +6,8 @@ import android.database.DatabaseUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,62 +37,36 @@ public class CourseListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
 
-        DatabaseHelper dbHelper = DatabaseHelper.getHelper(getApplicationContext());
-        Cursor rs = dbHelper.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, null, null, null, null, null);
+        DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
+        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, null, null, null, null, null);
 
-        // When the DB is still empty request courses
-        if (rs.getCount() == 0) {
-            Log.d("", "Requesting JSON");
-            requestSubjects();
+        mListView = (ListView) findViewById(R.id.my_list_view);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                             @Override
+                                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                                                 Toast t = Toast.makeText(CourseListActivity.this,"Click" + position,Toast.LENGTH_SHORT);
+                                                 t.show();
+                                             }
+                                         }
+        );
+
+        if (rs.getCount() > 0) {
+            rs.moveToFirst();
+            for (int i = 0 ; i < rs.getCount() ; i++) {
+                String name = rs.getString(rs.getColumnIndex("name"));
+                String ects = rs.getString(rs.getColumnIndex("ects"));
+                String period = rs.getString(rs.getColumnIndex("period"));
+                String grade = rs.getString(rs.getColumnIndex("grade"));
+                courseModels.add(new CourseModel(name, ects, grade, period));
+                rs.moveToNext();
+            }
         }
 
 
-
-    }
-
-    private void requestSubjects(){
-        Type type = new TypeToken<List<CourseModel>>(){}.getType();
-
-        GsonRequest<List<CourseModel>> request = new GsonRequest<List<CourseModel>>("https://itsjaap.nl/js/courses.json",
-                type, null, new Response.Listener<List<CourseModel>>() {
-            @Override
-            public void onResponse(List<CourseModel> response) {
-                processRequestSucces(response);
-            }
-        }, new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error){
-                processRequestError(error);
-            }
-        });
-        VolleyHelper.getInstance(this).addToRequestQueue(request);
-    }
-
-    private void processRequestSucces(List<CourseModel> subjects ){
-        DatabaseHelper dbHelper = DatabaseHelper.getHelper(getApplicationContext());
-
-        // putting all received classes in my database.
-        for (CourseModel cm : subjects) {
-            ContentValues cv = new ContentValues();
-            cv.put(DatabaseInfo.CourseColumn.NAME, cm.getName());
-            cv.put(DatabaseInfo.CourseColumn.CREDITS, cm.getCredits());
-            cv.put(DatabaseInfo.CourseColumn.GRADE, cm.getGrade());
-            cv.put(DatabaseInfo.CourseColumn.PERIOD, cm.getPeriod());
-            cv.put(DatabaseInfo.CourseColumn.YEAR, cm.getYear());
-            cv.put(DatabaseInfo.CourseColumn.ISOPT , cm.getIsOpt());
-            cv.put(DatabaseInfo.CourseColumn.USER , cm.getUser());
-            dbHelper.insert(DatabaseInfo.CourseTable.COURSETABLE, null, cv);
+        mAdapter = new CourseListAdapter(CourseListActivity.this, 0, courseModels);
+        mListView.setAdapter(mAdapter);
         }
 
-        Cursor rs = dbHelper.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, null, null, null, null, null);
-        rs.moveToFirst();   // kan leeg zijn en faalt dan
-        DatabaseUtils.dumpCursor(rs);
-        Toast.makeText(getApplicationContext(), "The JSON has arrived!", Toast.LENGTH_SHORT).show();
-
-    }
-
-    private void processRequestError(VolleyError error){
-        Toast.makeText(getApplicationContext(), "There was an error:\n" + error , Toast.LENGTH_LONG).show();
     }
 
 }

@@ -26,20 +26,28 @@ public class ListAdapter extends ArrayAdapter<CourseModel> {
             vh = new ViewHolder();
             LayoutInflater li = LayoutInflater.from(getContext());
             convertView = li.inflate(R.layout.view_content_row, parent, false);
-            vh.name = (TextView) convertView.findViewById(R.id.subject_name);
+            vh.title = (TextView) convertView.findViewById(R.id.subject_name);
             vh.info = (TextView) convertView.findViewById(R.id.subject_code);
             convertView.setTag(vh);
         } else {
             vh = (ViewHolder) convertView.getTag();
         }
+
         CourseModel cm = getItem(position);
-        vh.name.setText(cm.getName());
-        vh.info.setText("Cijfer: " + cm.getGrade() + " - ECTS: " + cm.getCredits());
+        String sOpt;
+        if (cm.getIsOpt().equals(1)) {
+            sOpt = "Keuzevak";
+        } else {
+            sOpt = "Verplicht";
+        }
+
+        vh.title.setText(cm.getName() + " - " + cm.getYear() + "." + cm.getPeriod());
+        vh.info.setText("Cijfer: " + cm.getGrade() + sOpt);
         return convertView;
     }
 
     private static class ViewHolder {
-        TextView name;
+        TextView title;
         TextView info;
     }
 }
