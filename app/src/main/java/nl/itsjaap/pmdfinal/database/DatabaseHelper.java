@@ -16,7 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static SQLiteDatabase mSQLDB;
     private static DatabaseHelper mInstance;
     public static final String dbName = "sql4u.db";
-    public static final int dbVersion = 7;
+    public static final int dbVersion = 8;
 
     private DatabaseHelper(Context ctx) {
         super(ctx, dbName, null, dbVersion);
@@ -45,7 +45,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 DatabaseInfo.CourseColumn.GRADE + " DOUBLE," +
                 DatabaseInfo.CourseColumn.PERIOD + " INTEGER," +
                 DatabaseInfo.CourseColumn.YEAR + " INTEGER," +
-                DatabaseInfo.CourseColumn.ISOPT + " BOOLEAN);"
+                DatabaseInfo.CourseColumn.ISOPT + " BOOLEAN," +
+                DatabaseInfo.CourseColumn.USER + " TEXT," +
+                DatabaseInfo.CourseColumn.NOTE + " TEXT);"
         );
     }
 

@@ -111,8 +111,13 @@ public class HomeActivity extends AppCompatActivity {
         for (CourseModel cm : subjects) {
             ContentValues cv = new ContentValues();
             cv.put(DatabaseInfo.CourseColumn.NAME, cm.getName());
-            cv.put(DatabaseInfo.CourseColumn.GRADE, cm.getGrade());
-            cv.put(DatabaseInfo.CourseColumn.PERIOD , cm.getPeriod());
+            cv.put(DatabaseInfo.CourseColumn.CREDITS, cm.getCredits());
+            cv.put(DatabaseInfo.CourseColumn.GRADE, "");
+            cv.put(DatabaseInfo.CourseColumn.PERIOD, cm.getPeriod());
+            cv.put(DatabaseInfo.CourseColumn.YEAR, cm.getYear());
+            cv.put(DatabaseInfo.CourseColumn.ISOPT, cm.getIsOpt());
+            cv.put(DatabaseInfo.CourseColumn.USER , getIntent().getExtras().getString("userName"));
+            cv.put(DatabaseInfo.CourseColumn.NOTE, "");
             dbHelper.insert(DatabaseInfo.CourseTable.COURSETABLE, null, cv);
         }
 
