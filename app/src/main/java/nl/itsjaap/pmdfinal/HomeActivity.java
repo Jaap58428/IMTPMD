@@ -50,7 +50,15 @@ public class HomeActivity extends AppCompatActivity {
         getJsonBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestSubjects();
+                DatabaseHelper dbHelper = DatabaseHelper.getHelper(getApplicationContext());
+                Cursor rs = dbHelper.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, " email = " + getIntent().getExtras().getString("userName"), null, null, null, null);
+
+                if (rs.getCount() == 0) {
+                    requestSubjects();
+                } else {
+                    Toast.makeText(getApplicationContext(), R.string.home_toast_db_exists, Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

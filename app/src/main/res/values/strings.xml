@@ -43,12 +43,22 @@
     <string name="home_btn_graph">Graph</string>
     <string name="home_btn_fill">GET JSON</string>
     <string name="home_toast_json_success">JSON has successfully received</string>
+    <string name="home_toast_db_exists">The DB is already filled</string>
 
 
     <!--Tutorial-->
     <string name="tutorial_intro">You can set grades for completed courses and add notes.</string>
     <string name="tutorial_extra">There you can also add optional courses or filter by different categories.</string>
     <string name="tutorial_graph">In the Graph screen you can see your progress visualized.</string>
+
+    <!--CourseList-->
+    <string name="courseList_isopt0">Mandatory</string>
+    <string name="courseList_isopt1">Optional Course</string>
+    <string name="courseList_blank_grade">No grade known</string>
+    <string name="courseList_year">Year </string>
+    <string name="courseList_period">Period </string>
+
+
 
 
 </resources>

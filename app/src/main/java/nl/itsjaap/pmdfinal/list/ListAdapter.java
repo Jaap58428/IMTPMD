@@ -40,14 +40,30 @@ public class ListAdapter extends ArrayAdapter<CourseModel> {
 
         CourseModel cm = getItem(position);
         String sOpt;
-        if (cm.getIsOpt().equals(1)) {
-            sOpt = "Keuzevak";
+        if (cm.getIsOpt().equals("1")) {
+            sOpt = getContext().getString(R.string.courseList_isopt1);
         } else {
-            sOpt = "Verplicht";
+            sOpt = getContext().getString(R.string.courseList_isopt0);
         }
 
-        vh.title.setText(cm.getName() + " - " + cm.getYear() + "." + cm.getPeriod());
-        vh.info.setText("Cijfer: " + cm.getGrade()+ "\t" + sOpt);
+        String sGrade;
+        if (cm.getGrade() == null) {
+            sGrade = getContext().getString(R.string.courseList_blank_grade);
+        } else {
+            sGrade = cm.getGrade();
+        }
+
+        String rowTitle = cm.getName() + " - " + sGrade;
+        vh.title.setText(rowTitle);
+
+        String rowInfo =
+                getContext().getString(R.string.courseList_year) + " " +
+                cm.getYear() + " - " +
+                getContext().getString(R.string.courseList_period) + " " +
+                cm.getPeriod() + " - " +
+                sOpt;
+        vh.info.setText(rowInfo);
+
         return convertView;
     }
 

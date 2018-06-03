@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,9 +88,13 @@ public class MainActivity extends AppCompatActivity {
             rs.moveToFirst();
             boolean loginSuccess = false;
             // loop over users and check credentials
+            Log.d("checking input user", username);
+            Log.d("checking input pwd", password);
             for (int i = 0 ; i < rs.getCount() ; i++){
-                if (username.equals(rs.getString(rs.getColumnIndex(DatabaseInfo.UserColumn.EMAIL)))
-                        && password.equals(rs.getString(rs.getColumnIndex(DatabaseInfo.UserColumn.PASSWORD))))
+                String toCheckUser = rs.getString(rs.getColumnIndex(DatabaseInfo.UserColumn.EMAIL));
+                String toCheckPwd = rs.getString(rs.getColumnIndex(DatabaseInfo.UserColumn.PASSWORD));
+                Log.d("checking against", toCheckUser + " " + toCheckPwd );
+                if (username.equals(toCheckUser) && password.equals(toCheckPwd))
                 {
                     Toast.makeText(getApplicationContext(), getString(R.string.login_success), Toast.LENGTH_SHORT).show();
 
@@ -106,10 +111,8 @@ public class MainActivity extends AppCompatActivity {
 
                     startActivity(intent);
                     loginSuccess = true;
-
-
-
                 }
+                rs.moveToNext();
             }
             if (!loginSuccess) {
                 // when there was no match in the DB

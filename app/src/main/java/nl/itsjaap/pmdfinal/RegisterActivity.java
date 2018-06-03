@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,7 +88,9 @@ public class RegisterActivity extends AppCompatActivity {
         // Insert values into DB
         ContentValues cv = new ContentValues();
         cv.put(DatabaseInfo.UserColumn.EMAIL, emailInput);
+        Log.d("inserted mail:", emailInput);
         cv.put(DatabaseInfo.UserColumn.PASSWORD, pwdInput);
+        Log.d("inserted pwd:", pwdInput);
         db.insert(DatabaseInfo.UserTable.USERTABLE, null, cv);
 
 
