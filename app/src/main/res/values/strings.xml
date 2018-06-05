@@ -2,11 +2,11 @@
     <!--General-->
     <string name="app_name">PMD Final</string>
     <string name="error">There was an error: </string>
+    <string name="currentUser">currentUser</string>
 
     <!--Shared prefs-->
     <string name="prefs_name">pmdfinal_prefs</string>
     <string name="prefs_lastUser">lastUser</string>
-
 
     <!--Welcome-->
     <string name="welcome_title">SLB4U</string>

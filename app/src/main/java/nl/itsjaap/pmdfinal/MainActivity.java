@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
 
                     Bundle b = new Bundle();
-                    b.putString("userName", username);
+                    b.putString(getString(R.string.currentUser), username);
                     intent.putExtras(b);
 
                     SharedPreferences credentials = getSharedPreferences(getString(R.string.prefs_name), 0);

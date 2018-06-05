@@ -38,13 +38,14 @@ public class CourseListActivity extends AppCompatActivity {
     private ListAdapter mAdapter;
     private List<CourseModel> courseModels = new ArrayList<>();
 
-    final String CURRENTUSER = getIntent().getExtras().getString("userName");
-
+    String CURRENTUSER;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
+
+        CURRENTUSER = getIntent().getExtras().getString(getString(R.string.currentUser));
 
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
         Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=?", new String[] { CURRENTUSER }, null, null, null);
@@ -55,6 +56,8 @@ public class CourseListActivity extends AppCompatActivity {
                                              public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                  Toast t = Toast.makeText(CourseListActivity.this,"Click" + position,Toast.LENGTH_SHORT);
                  t.show();
+
+                 // hier listener voor nieuwe activity bouwen, info meegeven over item?
                  }
              }
         );
@@ -67,7 +70,6 @@ public class CourseListActivity extends AppCompatActivity {
                 String period = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.PERIOD));
                 String year = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.YEAR));
                 String isOpt = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.ISOPT));
-                String grade = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.GRADE));
                 courseModels.add(new CourseModel(name, credits, period, year, isOpt ));
                 rs.moveToNext();
             }

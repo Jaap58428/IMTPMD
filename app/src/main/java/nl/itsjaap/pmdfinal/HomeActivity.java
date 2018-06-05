@@ -35,18 +35,14 @@ import nl.itsjaap.pmdfinal.models.CourseModel;
 
 public class HomeActivity extends AppCompatActivity {
 
-    final String CURRENTUSER = getIntent().getExtras().getString("userName");
+    String CURRENTUSER;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        if (getIntent().hasExtra("userName")) {
-//            TextView tv = findViewById(R.id.homeTitleTextView);
-//            String userName = getIntent().getExtras().getString("userName");
-//            tv.setText(getString(R.string.home_welcome) + " " + userName);
-//        }
+        CURRENTUSER = getIntent().getExtras().getString(getString(R.string.currentUser));
 
         Button getJsonBtn = findViewById(R.id.getJsonBtn);
         getJsonBtn.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +75,10 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, CourseListActivity.class);
 
                 Bundle b = new Bundle();
-                b.putString("userName", CURRENTUSER);
+                b.putString(getString(R.string.currentUser), CURRENTUSER);
                 intent.putExtras(b);
+
+                startActivity(intent);
             }
         });
 
@@ -126,11 +124,12 @@ public class HomeActivity extends AppCompatActivity {
             ContentValues cv = new ContentValues();
             cv.put(DatabaseInfo.CourseColumn.NAME, cm.getName());
             cv.put(DatabaseInfo.CourseColumn.CREDITS, cm.getCredits());
-            cv.put(DatabaseInfo.CourseColumn.GRADE, "");
+            cv.put(DatabaseInfo.CourseColumn.GRADE, cm.getGrade());
             cv.put(DatabaseInfo.CourseColumn.PERIOD, cm.getPeriod());
             cv.put(DatabaseInfo.CourseColumn.YEAR, cm.getYear());
             cv.put(DatabaseInfo.CourseColumn.ISOPT, cm.getIsOpt());
-            cv.put(DatabaseInfo.CourseColumn.USER , getIntent().getExtras().getString("userName"));
+            cv.put(DatabaseInfo.CourseColumn.ISACTIVE, "0");
+            cv.put(DatabaseInfo.CourseColumn.USER , CURRENTUSER);
             cv.put(DatabaseInfo.CourseColumn.NOTE, "");
             dbHelper.insert(DatabaseInfo.CourseTable.COURSETABLE, null, cv);
         }
