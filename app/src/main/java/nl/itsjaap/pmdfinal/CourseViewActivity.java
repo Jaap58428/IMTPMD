@@ -78,6 +78,8 @@ public class CourseViewActivity extends AppCompatActivity {
                 intent.putExtras(b);
 
                 startActivity(intent);
+
+
             }
         });
     }

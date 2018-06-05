@@ -67,5 +67,8 @@
     <string name="courseView_notes">Notes: </string>
     <string name="courseView_blankNotes">You have no notes</string>
 
+    <string name="courseEdit_notesHint">Insert some useful text (max 140 char.)</string>
+    <string name="courseEdit_gradeHint">0.0</string>
+
 
 </resources>

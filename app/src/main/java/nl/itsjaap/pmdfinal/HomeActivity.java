@@ -94,6 +94,8 @@ public class HomeActivity extends AppCompatActivity {
          * Use of SQLite local DB
          * Use of online JSON (list of potential courses, hosted on itsjaap?)
          *
+         * restrictions on course edit
+         *
          * */
 
     }

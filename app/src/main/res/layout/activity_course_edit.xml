@@ -7,7 +7,7 @@
     tools:context=".CourseEditActivity">
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/courseEdit_editBtn"
+        android:id="@+id/courseEdit_saveBtn"
         android:layout_width="64dp"
         android:layout_height="78dp"
         android:layout_marginBottom="16dp"
@@ -27,5 +27,51 @@
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/courseEdit_NotesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/courseView_notes"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseEdit_gradeTextView" />
+
+    <TextView
+        android:id="@+id/courseEdit_gradeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/courseView_grade"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseEdit_title" />
+
+    <EditText
+        android:id="@+id/courseEdit_editTextGrade"
+        android:layout_width="81dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/courseEdit_gradeHint"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toEndOf="@+id/courseEdit_gradeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/courseEdit_title" />
+
+    <EditText
+        android:id="@+id/courseEdit_editTextNotes"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/courseEdit_notesHint"
+        android:inputType="textMultiLine|textShortMessage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseEdit_NotesTextView" />
 
 </android.support.constraint.ConstraintLayout>
