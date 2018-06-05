@@ -5,31 +5,22 @@ package nl.itsjaap.pmdfinal.list;
  * git: https://github.com/Jaap58428/IMTPMD
  */
 
-import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.itsjaap.pmdfinal.HomeActivity;
+import nl.itsjaap.pmdfinal.CourseViewActivity;
 import nl.itsjaap.pmdfinal.R;
 import nl.itsjaap.pmdfinal.database.DatabaseHelper;
 import nl.itsjaap.pmdfinal.database.DatabaseInfo;
-import nl.itsjaap.pmdfinal.gson.GsonRequest;
-import nl.itsjaap.pmdfinal.gson.VolleyHelper;
 import nl.itsjaap.pmdfinal.models.CourseModel;
 
 public class CourseListActivity extends AppCompatActivity {
@@ -48,17 +39,26 @@ public class CourseListActivity extends AppCompatActivity {
         CURRENTUSER = getIntent().getExtras().getString(getString(R.string.currentUser));
 
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
-        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=?", new String[] { CURRENTUSER }, null, null, null);
+        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, null);
 
         mListView = (ListView) findViewById(R.id.my_list_view);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                             @Override
-                                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                 Toast t = Toast.makeText(CourseListActivity.this,"Click" + position,Toast.LENGTH_SHORT);
-                 t.show();
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+//                Intent intent = new Intent(getApplicationContext(), CourseViewActivity.class);
+//
+//                Bundle b = new Bundle();
+//                b.putString(getString(R.string.currentUser), CURRENTUSER);
+//                b.putString("courseTitle", "");
+//                intent.putExtras(b);
+//
+//                startActivity(intent);
 
-                 // hier listener voor nieuwe activity bouwen, info meegeven over item?
-                 }
+                Toast t = Toast.makeText(CourseListActivity.this,"Click" + position,Toast.LENGTH_SHORT);
+                t.show();
+
+                // hier listener voor nieuwe activity bouwen, info meegeven over item?
+}
              }
         );
 

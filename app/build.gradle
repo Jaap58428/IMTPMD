@@ -28,6 +28,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.google.code.gson:gson:2.3.1'  // zet JSON in goede classes
     implementation 'com.mcxiaoke.volley:library:1.0.19'   // Volley library 4 HTTP req.
+    implementation 'com.android.support:design:27.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

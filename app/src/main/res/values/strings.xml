@@ -58,7 +58,13 @@
     <string name="courseList_year">Year </string>
     <string name="courseList_period">Period </string>
 
-
+    <!--CourseView-->
+    <string name="courseView_saveBtn">Save</string>
+    <string name="courseView_grade">Grade: </string>
+    <string name="courseView_credits">Credits: </string>
+    <string name="courseView_year">Year: </string>
+    <string name="courseView_period">Period: </string>
+    <string name="courseView_notes">Notes: </string>
 
 
 </resources>

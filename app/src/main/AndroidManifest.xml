@@ -21,7 +21,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".TutorialActivity" />
-        <activity android:name=".list.CourseListActivity"></activity>
+        <activity android:name=".list.CourseListActivity" />
+        <activity android:name=".CourseViewActivity"></activity>
     </application>
 
 </manifest>

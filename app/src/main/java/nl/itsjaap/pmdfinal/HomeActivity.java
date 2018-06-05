@@ -5,10 +5,7 @@ package nl.itsjaap.pmdfinal;
  * git: https://github.com/Jaap58428/IMTPMD
  */
 
-import android.app.Activity;
-import android.app.ListActivity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -16,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -88,7 +84,11 @@ public class HomeActivity extends AppCompatActivity {
          * - Filter by year
          * - Per course: completed? + grade + notes
          * -> click een listitem en open een nieuwe activity met gepasseerde info
+         *      vervolgens data aanpassen en doorsturen naar DB of firebase?
          * mogelijkheid tot invoegen van comments en die in die activity opslaan.
+         *
+         * extra kolom isActiv -> alleen deze keuzevakken laten zien
+         * icoontje (notepad?) laten zien als notes langer is dan 0?
          *
          * Visualize progress
          * Use of SQLite local DB
