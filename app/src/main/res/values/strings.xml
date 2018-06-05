@@ -65,6 +65,7 @@
     <string name="courseView_year">Year: </string>
     <string name="courseView_period">Period: </string>
     <string name="courseView_notes">Notes: </string>
+    <string name="courseView_blankNotes">You have no notes</string>
 
 
 </resources>

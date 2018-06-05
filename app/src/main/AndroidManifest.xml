@@ -22,7 +22,8 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".TutorialActivity" />
         <activity android:name=".list.CourseListActivity" />
-        <activity android:name=".CourseViewActivity"></activity>
+        <activity android:name=".CourseViewActivity" />
+        <activity android:name=".CourseEditActivity"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -45,22 +46,24 @@ public class CourseListActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-//                Intent intent = new Intent(getApplicationContext(), CourseViewActivity.class);
-//
-//                Bundle b = new Bundle();
-//                b.putString(getString(R.string.currentUser), CURRENTUSER);
-//                b.putString("courseTitle", "");
-//                intent.putExtras(b);
-//
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), CourseViewActivity.class);
 
-                Toast t = Toast.makeText(CourseListActivity.this,"Click" + position,Toast.LENGTH_SHORT);
-                t.show();
+                CourseModel item = (CourseModel) mListView.getItemAtPosition(position);
 
-                // hier listener voor nieuwe activity bouwen, info meegeven over item?
-}
-             }
-        );
+                Bundle b = new Bundle();
+                b.putString(getString(R.string.currentUser), CURRENTUSER);
+                b.putString("courseTitle", item.getName());
+                b.putString("courseGrade", item.getGrade());
+                b.putString("courseCredits", item.getCredits());
+                b.putString("courseYear", item.getYear());
+                b.putString("coursePeriod", item.getPeriod());
+                b.putString("courseNotes", item.getNote());
+                intent.putExtras(b);
+
+                startActivity(intent);
+
+            }
+        });
 
         if (rs.getCount() > 0) {
             rs.moveToFirst();
