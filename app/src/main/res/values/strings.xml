@@ -38,18 +38,19 @@
     <!--Home-->
     <string name="home_welcome">Welcome</string>
     <string name="home_intro">Here you can see your personal study progress!</string>
-    <string name="home_btn_tutorial">Tutorial</string>
-    <string name="home_btn_courses">Courses</string>
-    <string name="home_btn_graph">Graph</string>
-    <string name="home_btn_fill">GET JSON</string>
+    <string name="home_btn_tutorial">Help</string>
+    <string name="home_btn_courses">My Courses</string>
+    <string name="home_btn_graph">Progress</string>
+    <string name="home_btn_optional">Change Optional Courses</string>
+    <string name="home_btn_fill">Fill Database</string>
     <string name="home_toast_json_success">JSON has successfully received</string>
     <string name="home_toast_db_exists">The DB is already filled</string>
 
 
     <!--Tutorial-->
     <string name="tutorial_intro">You can set grades for completed courses and add notes.</string>
-    <string name="tutorial_extra">There you can also add optional courses or filter by different categories.</string>
-    <string name="tutorial_graph">In the Graph screen you can see your progress visualized.</string>
+    <string name="tutorial_extra">Besides that, you can add optional courses.</string>
+    <string name="tutorial_graph">In the Progress screen you can see a graph of your progress.</string>
 
     <!--CourseList-->
     <string name="courseList_isopt0">Mandatory</string>
@@ -69,6 +70,8 @@
 
     <string name="courseEdit_notesHint">Insert some useful text (max 140 char.)</string>
     <string name="courseEdit_gradeHint">0.0</string>
+    <string name="courseEdit_toast_noDouble">Please only enter numbers</string>
+    <string name="courseEdit_toast_noGrade">Only grades between 1 and 10 are valid</string>
 
 
 </resources>

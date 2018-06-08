@@ -37,7 +37,7 @@
         android:text="@string/home_btn_graph"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homeBtnCourse" />
+        app:layout_constraintTop_toBottomOf="@+id/changeOptCourseBtn" />
 
     <Button
         android:id="@+id/homeBtnCourse"
@@ -70,4 +70,15 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homeIntroTextView" />
+
+    <Button
+        android:id="@+id/changeOptCourseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/home_btn_optional"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeBtnCourse" />
 </android.support.constraint.ConstraintLayout>

@@ -78,23 +78,26 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        Button graphBtn = findViewById(R.id.homeBtnGraph);
+        graphBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, GraphActivity.class);
+                startActivity(intent);
+            }
+        });
+
         /**
          *
-         * List of all courses + EC needed to graduate
-         * - Filter by year
-         * - Per course: completed? + grade + notes
-         * -> click een listitem en open een nieuwe activity met gepasseerde info
-         *      vervolgens data aanpassen en doorsturen naar DB of firebase?
-         * mogelijkheid tot invoegen van comments en die in die activity opslaan.
-         *
-         * extra kolom isActiv -> alleen deze keuzevakken laten zien
-         * icoontje (notepad?) laten zien als notes langer is dan 0?
+         * add courses as being optional
          *
          * Visualize progress
-         * Use of SQLite local DB
-         * Use of online JSON (list of potential courses, hosted on itsjaap?)
          *
-         * restrictions on course edit
+         * listview.invalidate()????
+         *
+         * graph:
+         * zet kleuren naar huisstijl
+         * zet strings naar resources
          *
          * */
 

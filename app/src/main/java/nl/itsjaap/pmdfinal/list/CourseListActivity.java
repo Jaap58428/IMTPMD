@@ -5,6 +5,7 @@ package nl.itsjaap.pmdfinal.list;
  * git: https://github.com/Jaap58428/IMTPMD
  */
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +14,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.itsjaap.pmdfinal.CourseViewActivity;
 import nl.itsjaap.pmdfinal.R;
 import nl.itsjaap.pmdfinal.database.DatabaseHelper;
 import nl.itsjaap.pmdfinal.database.DatabaseInfo;
@@ -40,7 +39,8 @@ public class CourseListActivity extends AppCompatActivity {
         CURRENTUSER = getIntent().getExtras().getString(getString(R.string.currentUser));
 
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
-        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, null);
+//        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, DatabaseInfo.CourseColumn.YEAR);
+        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, null, null, null, null, null);
 
         mListView = (ListView) findViewById(R.id.my_list_view);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -50,6 +50,7 @@ public class CourseListActivity extends AppCompatActivity {
 
                 CourseModel item = (CourseModel) mListView.getItemAtPosition(position);
 
+
                 Bundle b = new Bundle();
                 b.putString(getString(R.string.currentUser), CURRENTUSER);
                 b.putString("courseTitle", item.getName());
@@ -58,10 +59,14 @@ public class CourseListActivity extends AppCompatActivity {
                 b.putString("courseYear", item.getYear());
                 b.putString("coursePeriod", item.getPeriod());
                 b.putString("courseNotes", item.getNote());
+                b.putString("courseIsOpt", item.getIsOpt());
+                b.putString("courseIsAct", item.getIsActive());
                 intent.putExtras(b);
 
-                startActivity(intent);
 
+                Log.d("data passed along", b.toString());
+
+                startActivityForResult(intent, 3);
             }
         });
 
@@ -81,6 +86,20 @@ public class CourseListActivity extends AppCompatActivity {
 
         mAdapter = new ListAdapter(CourseListActivity.this, 0, courseModels);
         mListView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case (3) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    mListView.invalidateViews();
+                    Log.d("data clear?", "made it back to the list");
+                }
+                break;
+            }
+        }
     }
 
 }

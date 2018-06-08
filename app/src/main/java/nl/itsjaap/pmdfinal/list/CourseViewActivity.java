@@ -1,16 +1,15 @@
-package nl.itsjaap.pmdfinal;
+package nl.itsjaap.pmdfinal.list;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
-import nl.itsjaap.pmdfinal.database.DatabaseHelper;
-import nl.itsjaap.pmdfinal.database.DatabaseInfo;
+import nl.itsjaap.pmdfinal.R;
 
 public class CourseViewActivity extends AppCompatActivity {
 
@@ -26,6 +25,10 @@ public class CourseViewActivity extends AppCompatActivity {
         final String courseYear = getIntent().getExtras().getString("courseYear");
         final String coursePeriod = getIntent().getExtras().getString("coursePeriod");
         final String courseNotes = getIntent().getExtras().getString("courseNotes");
+        final String courseIsOpt = getIntent().getExtras().getString("courseIsOpt");
+        final String courseIsAct = getIntent().getExtras().getString("courseIsAct");
+
+        Log.d("data to show", ""+courseGrade+courseNotes);
 
         TextView vTitle = findViewById(R.id.courseViewTitleTextView);
         vTitle.setText(courseTitle);
@@ -75,12 +78,30 @@ public class CourseViewActivity extends AppCompatActivity {
                 b.putString("courseYear", courseYear);
                 b.putString("coursePeriod", coursePeriod);
                 b.putString("courseNotes", courseNotes);
+                b.putString("courseIsOpt", courseIsOpt);
+                b.putString("courseIsAct", courseIsAct);
+
                 intent.putExtras(b);
 
-                startActivity(intent);
+                startActivityForResult(intent, 2);
 
 
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case (2) : {
+                if (resultCode == Activity.RESULT_OK) {
+                    Intent resultIntent = new Intent();
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
+                }
+                break;
+            }
+        }
     }
 }
