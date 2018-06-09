@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static SQLiteDatabase mSQLDB;
     private static DatabaseHelper mInstance;
     public static final String dbName = "sql4u.db";
-    public static final int dbVersion = 12;
+    public static final int dbVersion = 13;
 
     private DatabaseHelper(Context ctx) {
         super(ctx, dbName, null, dbVersion);
@@ -78,26 +78,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateCourse(String grade, String notes, String user, String course, String credits, String period, String year, String isOpt, String isAct){
 
         ContentValues values = new ContentValues();
-        values.put(DatabaseInfo.CourseColumn.NAME, course);
-        values.put(DatabaseInfo.CourseColumn.CREDITS, credits);
+//        values.put(DatabaseInfo.CourseColumn.NAME, course);
+//        values.put(DatabaseInfo.CourseColumn.CREDITS, credits);
         values.put(DatabaseInfo.CourseColumn.GRADE, grade);
-        values.put(DatabaseInfo.CourseColumn.PERIOD, period);
-        values.put(DatabaseInfo.CourseColumn.YEAR, year);
-        values.put(DatabaseInfo.CourseColumn.ISOPT, isOpt);
-        values.put(DatabaseInfo.CourseColumn.ISACTIVE, isAct);
-        values.put(DatabaseInfo.CourseColumn.USER, user);
+//        values.put(DatabaseInfo.CourseColumn.PERIOD, period);
+//        values.put(DatabaseInfo.CourseColumn.YEAR, year);
+//        values.put(DatabaseInfo.CourseColumn.ISOPT, isOpt);
+//        values.put(DatabaseInfo.CourseColumn.ISACTIVE, isAct);
+//        values.put(DatabaseInfo.CourseColumn.USER, user);
         values.put(DatabaseInfo.CourseColumn.NOTE, notes);
 
         Log.d("data inserted to DB", course+grade+user);
         Log.d("data values", values.toString());
 
         // Update the details object where id matches
-        mSQLDB.delete(DatabaseInfo.CourseTable.COURSETABLE,"user=? AND name=?", new String[] { user, course });
-        long id = mSQLDB.insert(DatabaseInfo.CourseTable.COURSETABLE, null,values);
-        Log.d("id of new data entry", ""+id);
+        mSQLDB.update(DatabaseInfo.CourseTable.COURSETABLE,values,"user=? AND name=?", new String[] { user, course });
+//        mSQLDB.delete(DatabaseInfo.CourseTable.COURSETABLE,"user=? AND name=?", new String[] { user, course });
+//        long id = mSQLDB.insert(DatabaseInfo.CourseTable.COURSETABLE, null,values);
+//        Log.d("id of new data entry", ""+id);
         Cursor cs = mSQLDB.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND name=?", new String[] { user, course }, null, null, null);
         cs.moveToFirst();
         String newEntry = cs.getString(cs.getColumnIndex(DatabaseInfo.CourseColumn.NOTE));
-        Log.d("data from DB", newEntry);
+        Log.d("data from DB + amount", newEntry + cs.getCount());
     }
 }

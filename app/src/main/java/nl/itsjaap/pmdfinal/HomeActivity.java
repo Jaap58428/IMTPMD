@@ -83,6 +83,11 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, GraphActivity.class);
+
+                Bundle b = new Bundle();
+                b.putString(getString(R.string.currentUser), CURRENTUSER);
+
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });
@@ -90,14 +95,7 @@ public class HomeActivity extends AppCompatActivity {
         /**
          *
          * add courses as being optional
-         *
-         * Visualize progress
-         *
          * listview.invalidate()????
-         *
-         * graph:
-         * zet kleuren naar huisstijl
-         * zet strings naar resources
          *
          * */
 

@@ -55,6 +55,8 @@ public class ListAdapter extends ArrayAdapter<CourseModel> {
             sGrade = cm.getGrade();
         }
 
+
+
         String rowTitle = cm.getName() + " - " + sGrade;
         vh.title.setText(rowTitle);
 

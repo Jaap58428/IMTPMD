@@ -39,8 +39,8 @@ public class CourseListActivity extends AppCompatActivity {
         CURRENTUSER = getIntent().getExtras().getString(getString(R.string.currentUser));
 
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
-//        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, DatabaseInfo.CourseColumn.YEAR);
-        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, null, null, null, null, null);
+        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, DatabaseInfo.CourseColumn.YEAR);
+//        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, null, null, null, null, null);
 
         mListView = (ListView) findViewById(R.id.my_list_view);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,7 +78,11 @@ public class CourseListActivity extends AppCompatActivity {
                 String period = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.PERIOD));
                 String year = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.YEAR));
                 String isOpt = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.ISOPT));
-                courseModels.add(new CourseModel(name, credits, period, year, isOpt ));
+                String grade = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.GRADE));
+                String isAct = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.ISACTIVE));
+                String note = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.NOTE));
+                String user = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.USER));
+                courseModels.add(new CourseModel(name, credits, period, year, isOpt , grade, isAct, note, user));
                 rs.moveToNext();
             }
         }
@@ -94,8 +98,21 @@ public class CourseListActivity extends AppCompatActivity {
         switch(requestCode) {
             case (3) : {
                 if (resultCode == Activity.RESULT_OK) {
+                    courseModels.clear();
+
                     mListView.invalidateViews();
                     Log.d("data clear?", "made it back to the list");
+                    DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
+                    Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, DatabaseInfo.CourseColumn.YEAR);
+                    rs.moveToFirst();
+                    for (int i = 0 ; i < rs.getCount() ; i++) {
+                        Log.d("new data in list",rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.NOTE)));
+                        rs.moveToNext();
+                    }
+
+
+
+
                 }
                 break;
             }

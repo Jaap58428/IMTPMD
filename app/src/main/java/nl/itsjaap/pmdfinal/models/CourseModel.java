@@ -12,16 +12,16 @@ public class CourseModel {
     private String user;
     private String note;
 
-    public CourseModel(String n, String c, String p, String y, String i) {
+    public CourseModel(String n, String c, String p, String y, String i, String g, String a, String o, String u) {
         this.name = n;
         this.credits = c;
-        this.grade = null; // Users can manually enter their own grade
+        this.grade = g; // Users can manually enter their own grade
         this.period = p;
         this.year = y;
         this.isOpt = i;
-        this.isActive = "0"; // Default is null, not active
-        this.user = null; // users are added to the DB via processRequestSucces() in HomeActivity.class
-        this.note = ""; // Notes start out blank
+        this.isActive = a; // Default is null, not active
+        this.user = u; // users are added to the DB via processRequestSucces() in HomeActivity.class
+        this.note = o; // Notes start out blank
     }
 
     public String getName() {

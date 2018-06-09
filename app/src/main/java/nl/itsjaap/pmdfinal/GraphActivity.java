@@ -1,11 +1,13 @@
 package nl.itsjaap.pmdfinal;
 
+import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.CombinedChart;
@@ -22,10 +24,13 @@ import com.github.mikephil.charting.data.PieDataSet;
 
 import java.util.ArrayList;
 
+import nl.itsjaap.pmdfinal.database.DatabaseHelper;
+import nl.itsjaap.pmdfinal.database.DatabaseInfo;
+
 public class GraphActivity extends AppCompatActivity {
 
     private PieChart mChart;
-    public static final int MAX_ECTS = 10;
+    public static final int MAX_ECTS = 240;
     public static int currentEcts = 0;
 
     @Override
@@ -34,14 +39,51 @@ public class GraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_graph);
 
         mChart = (PieChart) findViewById(R.id.chart);
-        mChart.setDescription(" description ");
+        mChart.setDescription(getString(R.string.graph_description));
         mChart.setTouchEnabled(false);
         mChart.setDrawSliceText(true);
         mChart.getLegend().setEnabled(false);
         mChart.setTransparentCircleColor(Color.rgb(130, 130, 130));
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
 
-        setData(0);
+
+        // implement how much points the user currently has
+        final String CURRENTUSER = getIntent().getExtras().getString(getString(R.string.currentUser));
+        int mainPoints = 0;
+        int extraPoints = 0;
+
+        DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
+        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, null);
+
+        if (rs.getCount() > 0) {
+            rs.moveToFirst();
+            for (int i = 0 ; i < rs.getCount() ; i++) {
+                double grade = Double.valueOf(rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.GRADE)));
+                int ects = Integer.valueOf(rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.CREDITS)));
+                String isOpt = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.ISOPT));
+
+                // Only grades higher then 5.5 count toward ects
+                if(grade >= 5.5 && isOpt.equals("0")) {
+                    mainPoints += ects;
+                } else if (grade >= 5.5 && isOpt.equals("1")) {
+                    extraPoints += ects;
+                }
+                rs.moveToNext();
+            }
+        }
+
+        // You can have a maximum of 4 x 3 ects from 4 completed optional courses
+        if (extraPoints > 12) {
+            extraPoints = 12;
+            Toast.makeText(getApplicationContext(), R.string.graph_toast_tooManyOpt, Toast.LENGTH_LONG).show();
+        }
+
+        // The user completed their studies!
+        if (extraPoints + mainPoints == MAX_ECTS) {
+            Toast.makeText(getApplicationContext(), R.string.graph_toast_allPoints, Toast.LENGTH_LONG).show();
+        }
+
+        setData(mainPoints + extraPoints);
 
 //        Button fab = (Button) findViewById(R.id.plusTweeTest);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -63,18 +105,18 @@ public class GraphActivity extends AppCompatActivity {
         ArrayList<String> xValues = new ArrayList<>();
 
         yValues.add(new Entry(aantal, 0));
-        xValues.add("Behaalde ECTS");
+        xValues.add(getString(R.string.graph_completed));
 
-        yValues.add(new Entry(10 - currentEcts, 1));
-        xValues.add("Resterende ECTS");
+        yValues.add(new Entry(240 - currentEcts, 1));
+        xValues.add(getString(R.string.graph_remaining));
 
         //  http://www.materialui.co/colors
         ArrayList<Integer> colors = new ArrayList<>();
-        if (currentEcts <= 2) {
+        if (currentEcts <= 60) {
             colors.add(Color.rgb(244,81,30));
-        } else if (currentEcts <= 4){
+        } else if (currentEcts <= 120){
             colors.add(Color.rgb(235,0,0));
-        } else if  (currentEcts <= 8) {
+        } else if  (currentEcts <= 180) {
             colors.add(Color.rgb(253,216,53));
         } else {
             colors.add(Color.rgb(67,160,71));
