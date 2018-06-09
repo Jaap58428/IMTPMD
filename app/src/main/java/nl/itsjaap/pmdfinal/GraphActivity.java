@@ -55,12 +55,23 @@ public class GraphActivity extends AppCompatActivity {
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
         Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, null);
 
+        Log.d("db list", rs.getCount()+"");
         if (rs.getCount() > 0) {
             rs.moveToFirst();
             for (int i = 0 ; i < rs.getCount() ; i++) {
-                double grade = Double.valueOf(rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.GRADE)));
-                int ects = Integer.valueOf(rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.CREDITS)));
+                String sGrade = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.GRADE));
+                String sCredit = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.CREDITS));
                 String isOpt = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.ISOPT));
+
+
+                if (sGrade == null) {
+                    sGrade = "0";
+                }
+
+                Log.d("db entry", sGrade + " " + sCredit);
+
+                double grade = Double.parseDouble(sGrade);
+                int ects = Integer.parseInt(sCredit);
 
                 // Only grades higher then 5.5 count toward ects
                 if(grade >= 5.5 && isOpt.equals("0")) {
@@ -85,6 +96,7 @@ public class GraphActivity extends AppCompatActivity {
 
         setData(mainPoints + extraPoints);
 
+//        setData(240);
 //        Button fab = (Button) findViewById(R.id.plusTweeTest);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -26,6 +26,7 @@ import nl.itsjaap.pmdfinal.database.DatabaseHelper;
 import nl.itsjaap.pmdfinal.database.DatabaseInfo;
 import nl.itsjaap.pmdfinal.gson.GsonRequest;
 import nl.itsjaap.pmdfinal.gson.VolleyHelper;
+import nl.itsjaap.pmdfinal.list.ChangeOptActivity;
 import nl.itsjaap.pmdfinal.list.CourseListActivity;
 import nl.itsjaap.pmdfinal.models.CourseModel;
 
@@ -92,12 +93,23 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        Button optBtn = findViewById(R.id.changeOptCourseBtn);
+        optBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, ChangeOptActivity.class);
+
+                Bundle b = new Bundle();
+                b.putString(getString(R.string.currentUser), CURRENTUSER);
+
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
         /**
-         *
-         * kleurtjes in lijst werkt niet, objecten herhalen
-         *
+         *         *
          * add courses as being optional
-         * listview.invalidate()????
          *
          * */
 

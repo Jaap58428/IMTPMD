@@ -6,8 +6,6 @@ package nl.itsjaap.pmdfinal.list;
  */
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +17,11 @@ import java.util.List;
 import nl.itsjaap.pmdfinal.R;
 import nl.itsjaap.pmdfinal.models.CourseModel;
 
-public class ListAdapter extends ArrayAdapter<CourseModel> {
+public class ListAdapterOpt extends ArrayAdapter<CourseModel> {
 
 
 
-    public ListAdapter(Context context, int resource, List<CourseModel> objects){
+    public ListAdapterOpt(Context context, int resource, List<CourseModel> objects){
         super(context, resource, objects);
     }
 
@@ -44,10 +42,10 @@ public class ListAdapter extends ArrayAdapter<CourseModel> {
 
         CourseModel cm = getItem(position);
         String sOpt;
-        if (cm.getIsOpt().equals("1")) {
-            sOpt = getContext().getString(R.string.courseList_isopt1);
+        if (cm.getIsActive().equals("1")) {
+            sOpt = getContext().getString(R.string.courseOpt_following);
         } else {
-            sOpt = getContext().getString(R.string.courseList_isopt0);
+            sOpt = getContext().getString(R.string.courseOpt_notFollowing);
         }
 
         String sGrade;

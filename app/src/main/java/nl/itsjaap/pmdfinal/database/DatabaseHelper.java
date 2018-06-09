@@ -75,30 +75,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return mSQLDB.query(table, columns, selection, selectArgs, groupBy, having, orderBy);
     }
 
-    public void updateCourse(String grade, String notes, String user, String course, String credits, String period, String year, String isOpt, String isAct){
+    public void updateCourse(String grade, String notes, String user, String course){
 
         ContentValues values = new ContentValues();
-//        values.put(DatabaseInfo.CourseColumn.NAME, course);
-//        values.put(DatabaseInfo.CourseColumn.CREDITS, credits);
         values.put(DatabaseInfo.CourseColumn.GRADE, grade);
-//        values.put(DatabaseInfo.CourseColumn.PERIOD, period);
-//        values.put(DatabaseInfo.CourseColumn.YEAR, year);
-//        values.put(DatabaseInfo.CourseColumn.ISOPT, isOpt);
-//        values.put(DatabaseInfo.CourseColumn.ISACTIVE, isAct);
-//        values.put(DatabaseInfo.CourseColumn.USER, user);
         values.put(DatabaseInfo.CourseColumn.NOTE, notes);
-
-        Log.d("data inserted to DB", course+grade+user);
-        Log.d("data values", values.toString());
 
         // Update the details object where id matches
         mSQLDB.update(DatabaseInfo.CourseTable.COURSETABLE,values,"user=? AND name=?", new String[] { user, course });
-//        mSQLDB.delete(DatabaseInfo.CourseTable.COURSETABLE,"user=? AND name=?", new String[] { user, course });
-//        long id = mSQLDB.insert(DatabaseInfo.CourseTable.COURSETABLE, null,values);
-//        Log.d("id of new data entry", ""+id);
-        Cursor cs = mSQLDB.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND name=?", new String[] { user, course }, null, null, null);
-        cs.moveToFirst();
-        String newEntry = cs.getString(cs.getColumnIndex(DatabaseInfo.CourseColumn.NOTE));
-        Log.d("data from DB + amount", newEntry + cs.getCount());
+    }
+
+    public String switchOptValue(String user, String course){
+        Cursor rs = mSQLDB.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND name=?", new String[] { user, course }, null, null, null);
+        if (rs.getCount() > 0) {
+            rs.moveToFirst();
+            String oldActive = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.ISACTIVE));
+
+            String newActive;
+            if(oldActive.equals("1")) {
+                newActive = "0";
+            } else {
+                newActive = "1";
+            }
+
+            ContentValues values = new ContentValues();
+            values.put(DatabaseInfo.CourseColumn.ISACTIVE, newActive);
+
+            mSQLDB.update(DatabaseInfo.CourseTable.COURSETABLE,values,"user=? AND name=?", new String[] { user, course });
+            return newActive;
+        } else {
+            return "-1";
+        }
+
     }
 }

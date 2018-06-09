@@ -59,6 +59,11 @@
     <string name="courseList_year">Year </string>
     <string name="courseList_period">Period </string>
 
+    <string name="courseOpt_active">You started the course </string>
+    <string name="courseOpt_inactive">You stopped the course </string>
+    <string name="courseOpt_following">ACTIVE</string>
+    <string name="courseOpt_notFollowing">Sign up?</string>
+
     <!--CourseView-->
     <string name="courseView_saveBtn">Save</string>
     <string name="courseView_grade">Grade: </string>

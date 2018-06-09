@@ -1,11 +1,5 @@
 package nl.itsjaap.pmdfinal.list;
 
-/**
- * @author Jaap Kanbier s1100592
- * git: https://github.com/Jaap58428/IMTPMD
- */
-
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,50 +18,54 @@ import nl.itsjaap.pmdfinal.database.DatabaseHelper;
 import nl.itsjaap.pmdfinal.database.DatabaseInfo;
 import nl.itsjaap.pmdfinal.models.CourseModel;
 
-public class CourseListActivity extends AppCompatActivity {
+public class ChangeOptActivity extends AppCompatActivity {
 
     private ListView mListView;
-    private ListAdapter mAdapter;
+    private ListAdapterOpt mAdapter;
     private List<CourseModel> courseModels = new ArrayList<>();
 
     String CURRENTUSER;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_course_list);
+        setContentView(R.layout.activity_change_opt);
 
         CURRENTUSER = getIntent().getExtras().getString(getString(R.string.currentUser));
 
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
-        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, DatabaseInfo.CourseColumn.YEAR);
-//        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, null, null, null, null, null);
+        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND isOpt=?", new String[] { CURRENTUSER, "1"}, null, null, DatabaseInfo.CourseColumn.YEAR);
 
-        mListView = (ListView) findViewById(R.id.my_list_view);
+
+        // implement listView of only optional courses
+        // when you tap one: give feedback the course switched from active to inactive (vica versa)
+
+        mListView = (ListView) findViewById(R.id.my_list_view_opt);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent intent = new Intent(getApplicationContext(), CourseViewActivity.class);
+
 
                 CourseModel item = (CourseModel) mListView.getItemAtPosition(position);
 
+                DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
 
-                Bundle b = new Bundle();
-                b.putString(getString(R.string.currentUser), CURRENTUSER);
-                b.putString("courseTitle", item.getName());
-                b.putString("courseGrade", item.getGrade());
-                b.putString("courseCredits", item.getCredits());
-                b.putString("courseYear", item.getYear());
-                b.putString("coursePeriod", item.getPeriod());
-                b.putString("courseNotes", item.getNote());
-                b.putString("courseIsOpt", item.getIsOpt());
-                b.putString("courseIsAct", item.getIsActive());
-                intent.putExtras(b);
+                String username = item.getUser();
+                String coursename = item.getName();
 
+                String newValue = db.switchOptValue(username, coursename);
 
-                Log.d("data passed along", b.toString());
+                String toast;
+                if (newValue.equals("1")) {
+                    toast = getString(R.string.courseOpt_active);
+                } else {
+                    toast = getString(R.string.courseOpt_inactive);
+                }
+                Toast.makeText(getApplicationContext(), toast + " " + coursename,Toast.LENGTH_SHORT).show();
 
-                startActivityForResult(intent, 3);
+                mListView.invalidate();
+                recreate();
 
             }
         });
@@ -89,24 +88,7 @@ public class CourseListActivity extends AppCompatActivity {
         }
 
 
-        mAdapter = new ListAdapter(CourseListActivity.this, 0, courseModels);
+        mAdapter = new ListAdapterOpt(ChangeOptActivity.this, 0, courseModels);
         mListView.setAdapter(mAdapter);
     }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
-            case (3) : {
-                if (resultCode == Activity.RESULT_OK) {
-                    mAdapter.notifyDataSetChanged();
-                    recreate();
-                }
-                break;
-            }
-        }
-    }
-
 }
-
-

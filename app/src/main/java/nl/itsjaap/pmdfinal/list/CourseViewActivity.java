@@ -3,6 +3,7 @@ package nl.itsjaap.pmdfinal.list;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,13 +32,21 @@ public class CourseViewActivity extends AppCompatActivity {
         TextView vTitle = findViewById(R.id.courseViewTitleTextView);
         vTitle.setText(courseTitle);
 
+        TextView vGrade = findViewById(R.id.courseView_grade);
+
         String gradeValue;
         if (courseGrade == null) {
             gradeValue = getString(R.string.courseList_blank_grade);
         } else {
             gradeValue = courseGrade;
+
+            double dGrade = Double.valueOf(courseGrade);
+            if (dGrade >= 5.5) {
+                vGrade.setTextColor(ContextCompat.getColor(this, R.color.colorGradeSuccess));
+            } else if (dGrade < 5.5){
+                vGrade.setTextColor(ContextCompat.getColor(this, R.color.colorGradeFailed));
+            }
         }
-        TextView vGrade = findViewById(R.id.courseView_grade);
         String sGrade = vGrade.getText() + " " + gradeValue;
         vGrade.setText(sGrade);
 

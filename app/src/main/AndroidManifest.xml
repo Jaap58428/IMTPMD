@@ -25,7 +25,7 @@
         <activity android:name=".list.CourseViewActivity" />
         <activity android:name=".list.CourseEditActivity" />
         <activity android:name=".GraphActivity" />
-        <activity android:name=".ChangeOptActivity"></activity>
+        <activity android:name=".list.ChangeOptActivity"></activity>
     </application>
 
 </manifest>

@@ -67,11 +67,6 @@ public class CourseEditActivity extends AppCompatActivity {
                     if (1 <= enteredGrade && enteredGrade <= 10) {
                         String user = getIntent().getExtras().getString(getString(R.string.currentUser));
                         String course = getIntent().getExtras().getString("courseTitle");
-                        String credits = getIntent().getExtras().getString("courseCredits");
-                        String period = getIntent().getExtras().getString("courseYear");
-                        String year = getIntent().getExtras().getString("coursePeriod");
-                        String isOpt = getIntent().getExtras().getString("courseIsOpt");
-                        String isAct = getIntent().getExtras().getString("courseIsAct");
 
 
                         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
@@ -79,7 +74,7 @@ public class CourseEditActivity extends AppCompatActivity {
                         String dbGrade = new Double(enteredGrade).toString();
                         Log.d("entered db", dbGrade);
 
-                        db.updateCourse(dbGrade, sNewNotes, user, course, credits, period, year, isOpt, isAct);
+                        db.updateCourse(dbGrade, sNewNotes, user, course);
 
                         Intent resultIntent = new Intent();
                         setResult(Activity.RESULT_OK, resultIntent);
