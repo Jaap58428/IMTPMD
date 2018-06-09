@@ -1,6 +1,6 @@
 <resources>
     <!--General-->
-    <string name="app_name">PMD Final</string>
+    <string name="app_name">SLB4U</string>
     <string name="error">There was an error: </string>
     <string name="currentUser">currentUser</string>
 

@@ -107,12 +107,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        /**
-         *         *
-         * add courses as being optional
-         *
-         * */
-
     }
 
     private void requestSubjects(){
