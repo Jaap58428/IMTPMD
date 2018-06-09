@@ -28,8 +28,6 @@ public class CourseViewActivity extends AppCompatActivity {
         final String courseIsOpt = getIntent().getExtras().getString("courseIsOpt");
         final String courseIsAct = getIntent().getExtras().getString("courseIsAct");
 
-        Log.d("data to show", ""+courseGrade+courseNotes);
-
         TextView vTitle = findViewById(R.id.courseViewTitleTextView);
         vTitle.setText(courseTitle);
 

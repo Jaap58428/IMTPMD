@@ -15,13 +15,13 @@ public class CourseModel {
     public CourseModel(String n, String c, String p, String y, String i, String g, String a, String o, String u) {
         this.name = n;
         this.credits = c;
-        this.grade = g; // Users can manually enter their own grade
+        this.grade = g;
         this.period = p;
         this.year = y;
         this.isOpt = i;
-        this.isActive = a; // Default is null, not active
-        this.user = u; // users are added to the DB via processRequestSucces() in HomeActivity.class
-        this.note = o; // Notes start out blank
+        this.isActive = a;
+        this.user = u;
+        this.note = o;
     }
 
     public String getName() {

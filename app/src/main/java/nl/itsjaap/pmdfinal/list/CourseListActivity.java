@@ -98,21 +98,8 @@ public class CourseListActivity extends AppCompatActivity {
         switch(requestCode) {
             case (3) : {
                 if (resultCode == Activity.RESULT_OK) {
-                    courseModels.clear();
-
-                    mListView.invalidateViews();
-                    Log.d("data clear?", "made it back to the list");
-                    DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
-                    Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, DatabaseInfo.CourseColumn.YEAR);
-                    rs.moveToFirst();
-                    for (int i = 0 ; i < rs.getCount() ; i++) {
-                        Log.d("new data in list",rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.NOTE)));
-                        rs.moveToNext();
-                    }
-
-
-
-
+                    mAdapter.notifyDataSetChanged();
+                    recreate();
                 }
                 break;
             }

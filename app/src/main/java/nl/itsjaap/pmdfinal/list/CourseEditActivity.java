@@ -13,6 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.Arrays;
+
 import nl.itsjaap.pmdfinal.R;
 import nl.itsjaap.pmdfinal.database.DatabaseHelper;
 import nl.itsjaap.pmdfinal.database.DatabaseInfo;
@@ -50,9 +54,16 @@ public class CourseEditActivity extends AppCompatActivity {
                 EditText vNewNotes = findViewById(R.id.courseEdit_editTextNotes);
                 String sNewNotes = vNewNotes.getText().toString();
 
+
+
                 double enteredGrade;
                 if(isDouble(sNewGrade)){
-                    enteredGrade = Double.parseDouble(sNewGrade);
+                    Double unroundedGrade = Double.valueOf(sNewGrade);
+
+                    int roundedGrade = (int) (unroundedGrade * 100);
+
+                    enteredGrade = (double) roundedGrade / 100;
+
                     if (1 <= enteredGrade && enteredGrade <= 10) {
                         String user = getIntent().getExtras().getString(getString(R.string.currentUser));
                         String course = getIntent().getExtras().getString("courseTitle");
@@ -64,7 +75,11 @@ public class CourseEditActivity extends AppCompatActivity {
 
 
                         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
-                        db.updateCourse(sNewGrade, sNewNotes, user, course, credits, period, year, isOpt, isAct);
+
+                        String dbGrade = new Double(enteredGrade).toString();
+                        Log.d("entered db", dbGrade);
+
+                        db.updateCourse(dbGrade, sNewNotes, user, course, credits, period, year, isOpt, isAct);
 
                         Intent resultIntent = new Intent();
                         setResult(Activity.RESULT_OK, resultIntent);

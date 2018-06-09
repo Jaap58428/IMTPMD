@@ -94,6 +94,8 @@ public class HomeActivity extends AppCompatActivity {
 
         /**
          *
+         * kleurtjes in lijst werkt niet, objecten herhalen
+         *
          * add courses as being optional
          * listview.invalidate()????
          *

@@ -6,6 +6,8 @@ package nl.itsjaap.pmdfinal.list;
  */
 
 import android.content.Context;
+import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +51,19 @@ public class ListAdapter extends ArrayAdapter<CourseModel> {
         }
 
         String sGrade;
+        Double dGrade;
         if (cm.getGrade() == null) {
             sGrade = getContext().getString(R.string.courseList_blank_grade);
         } else {
             sGrade = cm.getGrade();
+            dGrade = Double.valueOf(sGrade);
+            if (dGrade >= 5.5) {
+                vh.title.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGradeSuccess));
+            } else if (dGrade < 5.5){
+                vh.title.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGradeFailed));
+            }
         }
+
 
 
 
