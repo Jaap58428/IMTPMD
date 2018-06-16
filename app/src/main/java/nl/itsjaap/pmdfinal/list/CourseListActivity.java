@@ -40,7 +40,6 @@ public class CourseListActivity extends AppCompatActivity {
 
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
         Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, DatabaseInfo.CourseColumn.YEAR);
-//        Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, null, null, null, null, null);
 
         mListView = (ListView) findViewById(R.id.my_list_view);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,9 +61,6 @@ public class CourseListActivity extends AppCompatActivity {
                 b.putString("courseIsOpt", item.getIsOpt());
                 b.putString("courseIsAct", item.getIsActive());
                 intent.putExtras(b);
-
-
-                Log.d("data passed along", b.toString());
 
                 startActivityForResult(intent, 3);
 

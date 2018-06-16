@@ -32,6 +32,7 @@ public class GraphActivity extends AppCompatActivity {
     private PieChart mChart;
     public static final int MAX_ECTS = 240;
     public static int currentEcts = 0;
+    public static final int SLA_BARIER = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +41,14 @@ public class GraphActivity extends AppCompatActivity {
 
         mChart = (PieChart) findViewById(R.id.chart);
         mChart.setDescription(getString(R.string.graph_description));
+        mChart.setDescriptionTextSize(14);
+        mChart.setCenterTextSize(24);
         mChart.setTouchEnabled(false);
-        mChart.setDrawSliceText(true);
-        mChart.getLegend().setEnabled(false);
+        mChart.setDrawSliceText(false);
+        mChart.getLegend().setEnabled(true);
+        mChart.getLegend().setTextSize(14);
         mChart.setTransparentCircleColor(Color.rgb(130, 130, 130));
-        mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+        mChart.animateY(1800, Easing.EasingOption.EaseInOutQuad);
 
 
         // implement how much points the user currently has
@@ -94,7 +98,7 @@ public class GraphActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), R.string.graph_toast_allPoints, Toast.LENGTH_LONG).show();
         }
 
-        setData(mainPoints + extraPoints);
+        setData(mainPoints, extraPoints);
 
 //        setData(240);
 //        Button fab = (Button) findViewById(R.id.plusTweeTest);
@@ -111,36 +115,57 @@ public class GraphActivity extends AppCompatActivity {
 
     }
 
-    private void setData(int aantal) {
-        currentEcts = aantal;
+    private void setData(int mainPoints, int extraPoints) {
+        currentEcts = mainPoints + extraPoints;
+        int remainingEcts = MAX_ECTS - currentEcts;
         ArrayList<Entry> yValues = new ArrayList<>();
         ArrayList<String> xValues = new ArrayList<>();
 
-        yValues.add(new Entry(aantal, 0));
+        yValues.add(new Entry(mainPoints, 0));
         xValues.add(getString(R.string.graph_completed));
 
-        yValues.add(new Entry(240 - currentEcts, 1));
+        yValues.add(new Entry(extraPoints, 0));
+        xValues.add(getString(R.string.graph_extra_completed));
+
+        yValues.add(new Entry(remainingEcts, 1));
         xValues.add(getString(R.string.graph_remaining));
+
+
 
         //  http://www.materialui.co/colors
         ArrayList<Integer> colors = new ArrayList<>();
-        if (currentEcts <= 60) {
-            colors.add(Color.rgb(244,81,30));
-        } else if (currentEcts <= 120){
-            colors.add(Color.rgb(235,0,0));
-        } else if  (currentEcts <= 180) {
-            colors.add(Color.rgb(253,216,53));
-        } else {
-            colors.add(Color.rgb(67,160,71));
-        }
-        colors.add(Color.rgb(255,0,0));
 
-        PieDataSet dataSet = new PieDataSet(yValues, "ECTS");
+        // color for mainPoints
+        colors.add(Color.rgb(33,150,243));
+
+        // color for extraPoints
+        colors.add(Color.rgb(0,188,212));
+
+        if (remainingEcts <= SLA_BARIER) {
+            colors.add(Color.rgb(76,175,80));
+        } else if (remainingEcts <= 60){
+            colors.add(Color.rgb(139,195,74));
+        } else if (remainingEcts <= 90){
+            colors.add(Color.rgb(205,220,57));
+        } else if (remainingEcts <= 120){
+            colors.add(Color.rgb(255,235,59));
+        } else if  (remainingEcts <= 150) {
+            colors.add(Color.rgb(255,193,7));
+        } else if  (remainingEcts <= 180) {
+            colors.add(Color.rgb(255,152,0));
+        } else if  (remainingEcts <= 210) {
+            colors.add(Color.rgb(255,87,34));
+        } else {
+            colors.add(Color.rgb(244,67,54));
+        }
+
+        PieDataSet dataSet = new PieDataSet(yValues, "Credits");
         dataSet.setColors(colors);
 
         PieData data = new PieData(xValues, dataSet);
+        data.setValueTextSize(15);
+        mChart.setCenterText((((double)currentEcts / MAX_ECTS) * 100) + "%");
         mChart.setData(data); // bind dataset aan chart.
         mChart.invalidate();  // Aanroepen van een redraw
-        Log.d("aantal =", ""+currentEcts);
     }
 }

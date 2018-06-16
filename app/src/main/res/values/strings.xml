@@ -79,9 +79,10 @@
     <string name="courseEdit_toast_noGrade">Only grades between 1 and 10 are valid</string>
 
     <!--Graph-->
-    <string name="graph_description">Visualized study progress</string>
-    <string name="graph_completed">Completed credits</string>
-    <string name="graph_remaining">Remaining credits</string>
+    <string name="graph_description">Progress until your Diploma</string>
+    <string name="graph_completed">Mandatory</string>
+    <string name="graph_extra_completed">Optional</string>
+    <string name="graph_remaining">Remaining</string>
     <string name="graph_toast_tooManyOpt">You have completed more then 4 optional courses: only a max of 12 ECTS are usable.</string>
     <string name="graph_toast_allPoints">Congratulations! Enjoy a life of responsibilities</string>
 

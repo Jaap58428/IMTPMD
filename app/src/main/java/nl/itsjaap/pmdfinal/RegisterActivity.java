@@ -48,7 +48,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), getString(R.string.register_toast_pwd_match), Toast.LENGTH_SHORT).show();
                 } else {
                     validate(sMail, sPwd);
-
                 }
 
             }
