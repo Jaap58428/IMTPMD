@@ -61,8 +61,13 @@ public class HomeActivity extends AppCompatActivity {
         tutorialBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, TutorialActivity.class));
-            }
+                Intent intent = new Intent(HomeActivity.this, TutorialActivity.class);
+
+                Bundle b = new Bundle();
+                b.putString(getString(R.string.currentUser), CURRENTUSER);
+                intent.putExtras(b);
+
+                startActivity(intent);            }
         });
 
         Button courseBtn = findViewById(R.id.homeBtnCourse);

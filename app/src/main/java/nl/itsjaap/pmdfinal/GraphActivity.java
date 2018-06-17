@@ -100,18 +100,6 @@ public class GraphActivity extends AppCompatActivity {
 
         setData(mainPoints, extraPoints);
 
-//        setData(240);
-//        Button fab = (Button) findViewById(R.id.plusTweeTest);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (currentEcts < MAX_ECTS) {
-//                    setData(currentEcts += 2);
-//                } else {
-//                    setData(currentEcts = 0);
-//                }
-//            }
-//        });
 
     }
 

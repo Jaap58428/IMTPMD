@@ -38,7 +38,7 @@
     <!--Home-->
     <string name="home_welcome">Welcome</string>
     <string name="home_intro">Here you can see your personal study progress!</string>
-    <string name="home_btn_tutorial">Help</string>
+    <string name="home_btn_tutorial">Help &#38; Backup</string>
     <string name="home_btn_courses">My Courses</string>
     <string name="home_btn_graph">Progress</string>
     <string name="home_btn_optional">Change Optional Courses</string>
@@ -48,9 +48,13 @@
 
 
     <!--Tutorial-->
-    <string name="tutorial_intro">You can set grades for completed courses and add notes.</string>
-    <string name="tutorial_extra">Besides that, you can add optional courses.</string>
-    <string name="tutorial_graph">In the Progress screen you can see a graph of your progress.</string>
+    <string name="tutorial_intro">You can set grades for completed courses and add notes</string>
+    <string name="tutorial_extra">Besides that, you can add optional courses</string>
+    <string name="tutorial_graph">In the Progress screen you can see a graph of your progress</string>
+    <string name="tutorial_latestBackup">Your latest backup was at:</string>
+    <string name="tutorial_restore">If you want a backup restored please contact the help service</string>
+    <string name="tutorial_email">help@slb4u.com</string>
+    <string name="tutorial_backupBtn">Backup Now</string>
 
     <!--CourseList-->
     <string name="courseList_isopt0">Mandatory</string>
