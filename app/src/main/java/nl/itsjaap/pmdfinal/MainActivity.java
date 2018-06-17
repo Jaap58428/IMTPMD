@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     b.putString(getString(R.string.currentUser), username);
                     intent.putExtras(b);
 
+                    // set current user as last user for future use of app
                     SharedPreferences credentials = getSharedPreferences(getString(R.string.prefs_name), 0);
                     SharedPreferences.Editor editor = credentials.edit();
                     editor.putString(getString(R.string.prefs_lastUser),username);
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         switch(requestCode) {
             case (1) : {
                 if (resultCode == Activity.RESULT_OK) {
+                    // when registration is complete fill in the credentials to the input fields
                     String newEmail = data.getStringExtra("registeredEmail");
                     String newPwd = data.getStringExtra("registeredPwd");
 

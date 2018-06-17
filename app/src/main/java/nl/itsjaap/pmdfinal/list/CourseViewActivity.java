@@ -19,6 +19,7 @@ public class CourseViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_view);
 
+        // get all values from extras
         final String CURRENTUSER = getIntent().getExtras().getString(getString(R.string.currentUser));
         final String courseTitle = getIntent().getExtras().getString("courseTitle");
         final String courseGrade = getIntent().getExtras().getString("courseGrade");
@@ -29,15 +30,18 @@ public class CourseViewActivity extends AppCompatActivity {
         final String courseIsOpt = getIntent().getExtras().getString("courseIsOpt");
         final String courseIsAct = getIntent().getExtras().getString("courseIsAct");
 
+        // fill in values into activity
         TextView vTitle = findViewById(R.id.courseViewTitleTextView);
         vTitle.setText(courseTitle);
 
         TextView vGrade = findViewById(R.id.courseView_grade);
 
         String gradeValue;
+        // if there is no grade value it defaults to NO GRADE KNOWN
         if (courseGrade == null) {
             gradeValue = getString(R.string.courseList_blank_grade);
         } else {
+            // otherwise also style the grade depending on passing or not
             gradeValue = courseGrade;
 
             double dGrade = Double.valueOf(courseGrade);
@@ -72,6 +76,7 @@ public class CourseViewActivity extends AppCompatActivity {
         String sNotes = vNotes.getText() + "\n" + courseNotesData;
         vNotes.setText(sNotes);
 
+        // pass all information to the edit activity
         FloatingActionButton editBtn = findViewById(R.id.courseView_editBtn);
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +111,8 @@ public class CourseViewActivity extends AppCompatActivity {
                     Intent resultIntent = new Intent();
                     setResult(Activity.RESULT_OK, resultIntent);
                     finish();
+
+                    // after editing of the course is done also close this activity
                 }
                 break;
             }

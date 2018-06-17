@@ -1,7 +1,6 @@
 package nl.itsjaap.pmdfinal.gson;
 
 /**
- * @author Jaap Kanbier s1100592
  * git: https://github.com/Jaap58428/IMTPMD
  */
 

@@ -42,6 +42,7 @@ public class ListAdapter extends ArrayAdapter<CourseModel> {
             vh = (ViewHolder) convertView.getTag();
         }
 
+        // changes depending if this is an optional course
         CourseModel cm = getItem(position);
         String sOpt;
         if (cm.getIsOpt().equals("1")) {
@@ -57,7 +58,7 @@ public class ListAdapter extends ArrayAdapter<CourseModel> {
         } else {
             sGrade = cm.getGrade();
 
-//             Removed this implementation due to recycling list making incorrect colours appear
+//            Removed this implementation due to recycling list making incorrect colours appear
 
 //            dGrade = Double.valueOf(sGrade);
 //            if (dGrade >= 5.5) {

@@ -39,6 +39,7 @@ public class CourseListActivity extends AppCompatActivity {
         CURRENTUSER = getIntent().getExtras().getString(getString(R.string.currentUser));
 
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
+        // query to get only courses from this user which are mandatory or optional and active
         Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, DatabaseInfo.CourseColumn.YEAR);
 
         mListView = (ListView) findViewById(R.id.my_list_view);
@@ -49,7 +50,7 @@ public class CourseListActivity extends AppCompatActivity {
 
                 CourseModel item = (CourseModel) mListView.getItemAtPosition(position);
 
-
+                // pass allong all the data from course object
                 Bundle b = new Bundle();
                 b.putString(getString(R.string.currentUser), CURRENTUSER);
                 b.putString("courseTitle", item.getName());
@@ -62,6 +63,7 @@ public class CourseListActivity extends AppCompatActivity {
                 b.putString("courseIsAct", item.getIsActive());
                 intent.putExtras(b);
 
+                // expect activity to complete and then do onResult()
                 startActivityForResult(intent, 3);
 
             }
@@ -95,6 +97,7 @@ public class CourseListActivity extends AppCompatActivity {
         switch(requestCode) {
             case (3) : {
                 if (resultCode == Activity.RESULT_OK) {
+                    // when the modification data is completed recreate the listView
                     mAdapter.notifyDataSetChanged();
                     recreate();
                 }

@@ -9,7 +9,7 @@ public class BackupModel {
     private String userName;
     private Date timestamp;
 
-    private BackupModel() {}
+    private BackupModel() {} // needed for the dataChangeListener
 
     public BackupModel(ArrayList<CourseModel> userData, String userName) {
         this.userData = userData;

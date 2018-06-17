@@ -48,6 +48,7 @@ public class TutorialActivity extends AppCompatActivity {
                 TextView latestBackupText = findViewById(R.id.helpTextLatestBackup);
                 String oldBackup;
 
+                // when there is a backup known set the timestamp to the user view
                 if (dataSnapshot.getValue() != null) {
 
                     String day = dataSnapshot.child("timestamp").child("date").getValue().toString();

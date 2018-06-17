@@ -1,10 +1,8 @@
 package nl.itsjaap.pmdfinal.list;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,7 +24,6 @@ public class ChangeOptActivity extends AppCompatActivity {
 
     String CURRENTUSER;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,18 +32,15 @@ public class ChangeOptActivity extends AppCompatActivity {
         CURRENTUSER = getIntent().getExtras().getString(getString(R.string.currentUser));
 
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
+        // query to get all courses that are from this user and optional
         Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND isOpt=?", new String[] { CURRENTUSER, "1"}, null, null, DatabaseInfo.CourseColumn.YEAR);
-
-
-        // implement listView of only optional courses
-        // when you tap one: give feedback the course switched from active to inactive (vica versa)
 
         mListView = (ListView) findViewById(R.id.my_list_view_opt);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-
+                // grab the clicked item
                 CourseModel item = (CourseModel) mListView.getItemAtPosition(position);
 
                 DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
@@ -54,8 +48,10 @@ public class ChangeOptActivity extends AppCompatActivity {
                 String username = item.getUser();
                 String coursename = item.getName();
 
+                // return the new value from the DB
                 String newValue = db.switchOptValue(username, coursename);
 
+                // display feedback based of newValue
                 String toast;
                 if (newValue.equals("1")) {
                     toast = getString(R.string.courseOpt_active);
@@ -64,12 +60,14 @@ public class ChangeOptActivity extends AppCompatActivity {
                 }
                 Toast.makeText(getApplicationContext(), toast + " " + coursename,Toast.LENGTH_SHORT).show();
 
+                // recreate the listview to show the new DB data
                 mListView.invalidate();
                 recreate();
 
             }
         });
 
+        // fill the arrayList while looping over the DB results
         if (rs.getCount() > 0) {
             rs.moveToFirst();
             for (int i = 0 ; i < rs.getCount() ; i++) {

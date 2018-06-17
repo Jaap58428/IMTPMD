@@ -28,19 +28,21 @@ public class CourseEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_edit);
 
+        // grab all the passed extras value and fill them in to format
         TextView title = findViewById(R.id.courseEdit_title);
         String courseTitle = getIntent().getExtras().getString("courseTitle");
         title.setText(courseTitle);
 
         EditText vNewGrade = findViewById(R.id.courseEdit_editTextGrade);
         String oldGrade = getIntent().getExtras().getString("courseGrade");
-        if (("" + oldGrade).matches("")) {
+        // when there was an old value, put this already in the editText
+        if (!("" + oldGrade).matches("")) {
             vNewGrade.setText(oldGrade , TextView.BufferType.EDITABLE);
         }
 
         EditText vNewNotes = findViewById(R.id.courseEdit_editTextNotes);
         String oldNote = getIntent().getExtras().getString("courseNote");
-        if (("" + oldNote).matches("")) {
+        if (!("" + oldNote).matches("")) {
             vNewNotes.setText(oldNote , TextView.BufferType.EDITABLE);
         }
 
@@ -57,22 +59,26 @@ public class CourseEditActivity extends AppCompatActivity {
 
 
                 double enteredGrade;
+
+                // check if the input is a double
                 if(isDouble(sNewGrade)){
                     Double unroundedGrade = Double.valueOf(sNewGrade);
 
+                    // takes away decimals beyond 2 points
                     int roundedGrade = (int) (unroundedGrade * 100);
 
+                    // revert back to double
                     enteredGrade = (double) roundedGrade / 100;
 
+                    // only grades between 1 and up to 10 are valid
                     if (1 <= enteredGrade && enteredGrade <= 10) {
                         String user = getIntent().getExtras().getString(getString(R.string.currentUser));
                         String course = getIntent().getExtras().getString("courseTitle");
 
-
                         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
 
+                        // convert grade to string
                         String dbGrade = new Double(enteredGrade).toString();
-                        Log.d("entered db", dbGrade);
 
                         db.updateCourse(dbGrade, sNewNotes, user, course);
 
@@ -90,6 +96,8 @@ public class CourseEditActivity extends AppCompatActivity {
             }
         });
     }
+
+    // check if an input is a double
     public boolean isDouble( String str ){
         try {
             Double.parseDouble(str);

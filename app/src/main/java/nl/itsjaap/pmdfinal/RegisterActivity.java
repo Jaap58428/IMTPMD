@@ -40,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
                 EditText pwdConfEditText = findViewById(R.id.registerPwdConfEditText);
                 String sPwdConf = pwdConfEditText.getText().toString();
 
+                // check if the username is a valid email address and password is long enough and the same
                 if (!android.util.Patterns.EMAIL_ADDRESS.matcher(sMail).matches()) {
                     Toast.makeText(getApplicationContext(), getString(R.string.register_toast_invalid_mail), Toast.LENGTH_SHORT).show();
                 } else if (sPwd.length() < 8 ) {
@@ -79,6 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void insertNewUser(String emailInput, String pwdInput) {
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
 
+        // hash the password to a unique number
         String hashedPwd = String.valueOf(pwdInput.hashCode());
 
         // Insert values into DB

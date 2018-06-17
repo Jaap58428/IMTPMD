@@ -48,6 +48,7 @@ public class HomeActivity extends AppCompatActivity {
                 DatabaseHelper dbHelper = DatabaseHelper.getHelper(getApplicationContext());
                 Cursor rs = dbHelper.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=?", new String[] { CURRENTUSER }, null, null, null);
 
+                // check if the DB is actually empty and needs filling
                 if (rs.getCount() == 0) {
                     requestSubjects();
                 } else {
@@ -144,7 +145,7 @@ public class HomeActivity extends AppCompatActivity {
             cv.put(DatabaseInfo.CourseColumn.PERIOD, cm.getPeriod());
             cv.put(DatabaseInfo.CourseColumn.YEAR, cm.getYear());
             cv.put(DatabaseInfo.CourseColumn.ISOPT, cm.getIsOpt());
-            cv.put(DatabaseInfo.CourseColumn.ISACTIVE, "0");
+            cv.put(DatabaseInfo.CourseColumn.ISACTIVE, "0");  // by default no optional classes are active
             cv.put(DatabaseInfo.CourseColumn.USER , CURRENTUSER);
             cv.put(DatabaseInfo.CourseColumn.NOTE, "");
             dbHelper.insert(DatabaseInfo.CourseTable.COURSETABLE, null, cv);

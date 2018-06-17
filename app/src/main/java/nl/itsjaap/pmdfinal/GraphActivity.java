@@ -32,7 +32,7 @@ public class GraphActivity extends AppCompatActivity {
     private PieChart mChart;
     public static final int MAX_ECTS = 240;
     public static int currentEcts = 0;
-    public static final int SLA_BARIER = 50;
+    public static final int BSA_BARIER = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +57,9 @@ public class GraphActivity extends AppCompatActivity {
         int extraPoints = 0;
 
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
+        // only get relevant courses
         Cursor rs = db.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND (isOpt=? OR (isOpt=? AND isActive=?))", new String[] { CURRENTUSER, "0", "1", "1"}, null, null, null);
 
-        Log.d("db list", rs.getCount()+"");
         if (rs.getCount() > 0) {
             rs.moveToFirst();
             for (int i = 0 ; i < rs.getCount() ; i++) {
@@ -67,12 +67,10 @@ public class GraphActivity extends AppCompatActivity {
                 String sCredit = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.CREDITS));
                 String isOpt = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.ISOPT));
 
-
+                // when there is no grade known, we default to 0
                 if (sGrade == null) {
                     sGrade = "0";
                 }
-
-                Log.d("db entry", sGrade + " " + sCredit);
 
                 double grade = Double.parseDouble(sGrade);
                 int ects = Integer.parseInt(sCredit);
@@ -100,7 +98,6 @@ public class GraphActivity extends AppCompatActivity {
 
         setData(mainPoints, extraPoints);
 
-
     }
 
     private void setData(int mainPoints, int extraPoints) {
@@ -108,8 +105,6 @@ public class GraphActivity extends AppCompatActivity {
         int remainingEcts = MAX_ECTS - currentEcts;
         ArrayList<Entry> yValues = new ArrayList<>();
         ArrayList<String> xValues = new ArrayList<>();
-
-        //  http://www.materialui.co/colors
         ArrayList<Integer> colors = new ArrayList<>();
 
         yValues.add(new Entry(mainPoints, 0));
@@ -128,7 +123,8 @@ public class GraphActivity extends AppCompatActivity {
         yValues.add(new Entry(remainingEcts, 2));
         xValues.add(getString(R.string.graph_remaining));
 
-        if (remainingEcts <= SLA_BARIER) {
+        // if you wont make the studies (BSA) you are in the red
+        if (remainingEcts <= 30) {
             colors.add(Color.rgb(76,175,80));
         } else if (remainingEcts <= 60){
             colors.add(Color.rgb(139,195,74));
@@ -140,7 +136,7 @@ public class GraphActivity extends AppCompatActivity {
             colors.add(Color.rgb(255,193,7));
         } else if  (remainingEcts <= 180) {
             colors.add(Color.rgb(255,152,0));
-        } else if  (remainingEcts <= 210) {
+        } else if  (remainingEcts <= (MAX_ECTS - BSA_BARIER)) {
             colors.add(Color.rgb(255,87,34));
         } else {
             colors.add(Color.rgb(244,67,54));
@@ -151,6 +147,7 @@ public class GraphActivity extends AppCompatActivity {
 
         PieData data = new PieData(xValues, dataSet);
         data.setValueTextSize(15);
+        // show your global progress as a percentage
         mChart.setCenterText(Math.round(((double)currentEcts / MAX_ECTS) * 100) + "%");
         mChart.setData(data); // bind dataset aan chart.
         mChart.invalidate();  // Aanroepen van een redraw

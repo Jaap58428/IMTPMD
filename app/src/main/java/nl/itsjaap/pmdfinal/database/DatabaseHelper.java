@@ -42,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 DatabaseInfo.UserColumn.PASSWORD + " TEXT);"
         );
 
+        // datatypes zijn beperkt tot bekend werkende interactie
         db.execSQL("CREATE TABLE " + DatabaseInfo.CourseTable.COURSETABLE + " (" +
                 _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 DatabaseInfo.CourseColumn.NAME + " TEXT," +
@@ -75,6 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return mSQLDB.query(table, columns, selection, selectArgs, groupBy, having, orderBy);
     }
 
+    // specifieke update functie voor het toevoegen of aanpassen van een cijfer of notitie
     public void updateCourse(String grade, String notes, String user, String course){
 
         ContentValues values = new ContentValues();
@@ -85,12 +87,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         mSQLDB.update(DatabaseInfo.CourseTable.COURSETABLE,values,"user=? AND name=?", new String[] { user, course });
     }
 
+    // specifieke functie voor het switchen tussen true/false of 1/0 op keuzevakken
     public String switchOptValue(String user, String course){
         Cursor rs = mSQLDB.query(DatabaseInfo.CourseTable.COURSETABLE, new String[]{"*"}, "user=? AND name=?", new String[] { user, course }, null, null, null);
         if (rs.getCount() > 0) {
             rs.moveToFirst();
             String oldActive = rs.getString(rs.getColumnIndex(DatabaseInfo.CourseColumn.ISACTIVE));
 
+            // invert old value
             String newActive;
             if(oldActive.equals("1")) {
                 newActive = "0";
@@ -104,6 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             mSQLDB.update(DatabaseInfo.CourseTable.COURSETABLE,values,"user=? AND name=?", new String[] { user, course });
             return newActive;
         } else {
+            // return -1 wanneer er geen mogelijke aanpassing is
             return "-1";
         }
 
