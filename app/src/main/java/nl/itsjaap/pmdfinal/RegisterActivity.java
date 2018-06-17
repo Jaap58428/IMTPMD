@@ -71,11 +71,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
 
-        // Hash pwd
-//        for (byte b : pwd.getBytes()) {
-//            // Find implementation
-//        }
-
         if (!userExists) {
             insertNewUser(emailInput, pwdInput);
         }
@@ -84,12 +79,13 @@ public class RegisterActivity extends AppCompatActivity {
     public void insertNewUser(String emailInput, String pwdInput) {
         DatabaseHelper db = DatabaseHelper.getHelper(getApplicationContext());
 
+        String hashedPwd = String.valueOf(pwdInput.hashCode());
+
         // Insert values into DB
         ContentValues cv = new ContentValues();
         cv.put(DatabaseInfo.UserColumn.EMAIL, emailInput);
-        cv.put(DatabaseInfo.UserColumn.PASSWORD, pwdInput);
+        cv.put(DatabaseInfo.UserColumn.PASSWORD, hashedPwd);
         db.insert(DatabaseInfo.UserTable.USERTABLE, null, cv);
-
 
         // Return the results to the login and finish
         Intent resultIntent = new Intent();

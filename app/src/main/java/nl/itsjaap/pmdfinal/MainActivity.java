@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (sPwd.matches("")) {
                     Toast.makeText(getApplicationContext(), getString(R.string.forgot_password), Toast.LENGTH_SHORT).show();
                 } else {
-                    authenticate(sUsername, sPwd);
+                    authenticate(sUsername, String.valueOf(sPwd.hashCode()));
                 }
             }
         });
