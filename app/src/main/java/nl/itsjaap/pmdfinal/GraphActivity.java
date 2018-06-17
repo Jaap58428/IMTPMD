@@ -109,25 +109,24 @@ public class GraphActivity extends AppCompatActivity {
         ArrayList<Entry> yValues = new ArrayList<>();
         ArrayList<String> xValues = new ArrayList<>();
 
-        yValues.add(new Entry(mainPoints, 0));
-        xValues.add(getString(R.string.graph_completed));
-
-        yValues.add(new Entry(extraPoints, 0));
-        xValues.add(getString(R.string.graph_extra_completed));
-
-        yValues.add(new Entry(remainingEcts, 1));
-        xValues.add(getString(R.string.graph_remaining));
-
-
-
         //  http://www.materialui.co/colors
         ArrayList<Integer> colors = new ArrayList<>();
 
+        yValues.add(new Entry(mainPoints, 0));
+        xValues.add(getString(R.string.graph_completed));
         // color for mainPoints
         colors.add(Color.rgb(33,150,243));
 
-        // color for extraPoints
-        colors.add(Color.rgb(0,188,212));
+        if (extraPoints != 0) {
+            yValues.add(new Entry(extraPoints, 1));
+            xValues.add(getString(R.string.graph_extra_completed));
+
+            // color for extraPoints
+            colors.add(Color.rgb(0,188,212));
+        }
+
+        yValues.add(new Entry(remainingEcts, 2));
+        xValues.add(getString(R.string.graph_remaining));
 
         if (remainingEcts <= SLA_BARIER) {
             colors.add(Color.rgb(76,175,80));
@@ -152,7 +151,7 @@ public class GraphActivity extends AppCompatActivity {
 
         PieData data = new PieData(xValues, dataSet);
         data.setValueTextSize(15);
-        mChart.setCenterText((((double)currentEcts / MAX_ECTS) * 100) + "%");
+        mChart.setCenterText(Math.round(((double)currentEcts / MAX_ECTS) * 100) + "%");
         mChart.setData(data); // bind dataset aan chart.
         mChart.invalidate();  // Aanroepen van een redraw
     }

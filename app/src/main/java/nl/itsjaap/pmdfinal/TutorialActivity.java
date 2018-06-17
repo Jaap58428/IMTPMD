@@ -45,17 +45,28 @@ public class TutorialActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                String day = dataSnapshot.child("timestamp").child("date").getValue().toString();
-                String month = dataSnapshot.child("timestamp").child("month").getValue().toString();
-                String year = dataSnapshot.child("timestamp").child("year").getValue().toString();
-                year = String.valueOf(Integer.valueOf(year) - 100);
-
-                String hour = dataSnapshot.child("timestamp").child("hours").getValue().toString();
-                String minute = dataSnapshot.child("timestamp").child("minutes").getValue().toString();
-                String second = dataSnapshot.child("timestamp").child("seconds").getValue().toString();
-
                 TextView latestBackupText = findViewById(R.id.helpTextLatestBackup);
-                latestBackupText.setText(getString(R.string.tutorial_latestBackup)+"\n" + day + "-" + month + "-" + year + " " + hour+":"+minute+":"+second);
+                String oldBackup;
+
+                if (dataSnapshot.getValue() != null) {
+
+                    String day = dataSnapshot.child("timestamp").child("date").getValue().toString();
+                    String month = dataSnapshot.child("timestamp").child("month").getValue().toString();
+                    String year = dataSnapshot.child("timestamp").child("year").getValue().toString();
+                    year = String.valueOf(Integer.valueOf(year) - 100);
+
+                    String hour = dataSnapshot.child("timestamp").child("hours").getValue().toString();
+                    String minute = dataSnapshot.child("timestamp").child("minutes").getValue().toString();
+                    String second = dataSnapshot.child("timestamp").child("seconds").getValue().toString();
+
+                    oldBackup = getString(R.string.tutorial_latestBackup)+"\n" + day + "-" + month + "-" + year + " " + hour+":"+minute+":"+second;
+
+                } else {
+
+                    oldBackup = getString(R.string.tutorial_latestBackup)+"\n"+ getString(R.string.tutorial_noBackup);
+
+                }
+                latestBackupText.setText(oldBackup);
 
             }
 

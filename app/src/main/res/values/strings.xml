@@ -55,6 +55,7 @@
     <string name="tutorial_restore">If you want a backup restored please contact the help service</string>
     <string name="tutorial_email">help@slb4u.com</string>
     <string name="tutorial_backupBtn">Backup Now</string>
+    <string name="tutorial_noBackup">Never</string>
 
     <!--CourseList-->
     <string name="courseList_isopt0">Mandatory</string>
